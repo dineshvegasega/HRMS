@@ -1,0 +1,47 @@
+{
+  "menu": [
+    {
+      "name": "Dashboard",
+      "headlines": [
+
+      ]
+    },
+    {
+      "name": "Employees Performance Score",
+      "headlines": [
+
+      ]
+    },
+    {
+      "name": "Employees Leave Request",
+      "headlines": [
+
+      ]
+    },
+    {
+      "name": "Attendances",
+      "headlines": [
+
+      ]
+    },
+    {
+      "name": "Announcements",
+      "headlines": [
+
+      ]
+    },
+
+    {
+      "name": "Policies",
+      "headlines": [
+
+      ]
+    },
+    {
+      "name": "Profile",
+      "headlines": [
+
+      ]
+    }
+  ]
+}

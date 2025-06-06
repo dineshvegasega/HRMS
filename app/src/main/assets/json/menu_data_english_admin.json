@@ -1,0 +1,83 @@
+{
+  "menu": [
+    {
+      "name": "Dashboard",
+      "headlines": [
+
+      ]
+    },
+    {
+      "name": "Data",
+      "headlines": [
+        {
+          "title": "Employees"
+        },
+        {
+          "title": "Departments"
+        },
+        {
+          "title": "Positions"
+        }
+      ]
+    },
+    {
+      "name": "Employees Performance Score",
+      "headlines": [
+
+      ]
+    },
+    {
+      "name": "Employees Leave Request",
+      "headlines": [
+
+      ]
+    },
+    {
+      "name": "Attendances",
+      "headlines": [
+
+      ]
+    },
+    {
+      "name": "Announcements",
+      "headlines": [
+
+      ]
+    },
+    {
+      "name": "Recruitments",
+      "headlines": [
+
+      ]
+    },
+    {
+      "name": "Score Categories",
+      "headlines": [
+
+      ]
+    },
+    {
+      "name": "Accounts",
+      "headlines": [
+        {
+          "title": "Users"
+        },
+        {
+          "title": "Roles"
+        }
+      ]
+    },
+    {
+      "name": "Policies",
+      "headlines": [
+
+      ]
+    },
+    {
+      "name": "Profile",
+      "headlines": [
+
+      ]
+    }
+  ]
+}

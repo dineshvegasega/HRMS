@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textEmployeeInformationTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_14sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/employeesInformation"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_15sdp"
+        />
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/startContract"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/textEmployeeInformationTxt"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:gravity="center_vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textStartDateTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_15sdp"
+            android:text="Start Contract:"
+            android:textColor="@color/_79747E"
+            app:fontFamily="@font/roboto_regular"
+            tools:ignore="HardcodedText"
+            android:autoSizeTextType="uniform"
+            android:autoSizePresetSizes="@array/autosize_4_5_10"
+            android:autoSizeStepGranularity="@dimen/_1sdp"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/_12sdp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textStartDateValue"
+            android:layout_width="@dimen/_57sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:text="12 Sept, 2023"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            app:fontFamily="@font/roboto_bold"
+            tools:ignore="HardcodedText"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintTop_toBottomOf="@+id/textDesc"
+            app:layout_constraintStart_toStartOf="parent"
+            android:autoSizeTextType="uniform"
+            android:autoSizePresetSizes="@array/autosize_4_5_10"
+            android:autoSizeStepGranularity="@dimen/_1sdp"/>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/endContract"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/textEmployeeInformationTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:gravity="center_vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textEndDateTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_15sdp"
+            android:textSize="@dimen/_12sdp"
+            android:text="End Contract:"
+            android:textColor="@color/_79747E"
+            app:fontFamily="@font/roboto_regular"
+            tools:ignore="HardcodedText"
+            android:autoSizeTextType="uniform"
+            android:autoSizePresetSizes="@array/autosize_4_5_10"
+            android:autoSizeStepGranularity="@dimen/_1sdp"
+            android:gravity="center_vertical"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textEndDateValue"
+            android:layout_width="@dimen/_57sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:textSize="@dimen/_12sdp"
+            android:text="12 Sept, 2023"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            app:fontFamily="@font/roboto_bold"
+            tools:ignore="HardcodedText"
+            app:layout_constraintTop_toBottomOf="@+id/textDesc"
+            app:layout_constraintStart_toStartOf="parent"
+            android:autoSizeTextType="uniform"
+            android:autoSizePresetSizes="@array/autosize_4_5_10"
+            android:autoSizeStepGranularity="@dimen/_1sdp"/>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textDepartmentTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/endContract"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/departmentCol"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editDepartment"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        style="@style/PrimaryEditText"
+        android:hint="@string/departmentCol"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textDepartmentTxt"
+        android:layout_marginTop="@dimen/_5sdp"
+        />
+
+
+
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textPositionTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/editDepartment"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/positionCol"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editPosition"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        style="@style/PrimaryEditText"
+        android:hint="@string/positionCol"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textPositionTxt"
+        android:layout_marginTop="@dimen/_5sdp"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textGenderTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/editPosition"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/genderCol"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editGender"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        style="@style/PrimaryEditText"
+        android:hint="@string/genderCol"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textGenderTxt"
+        android:layout_marginTop="@dimen/_5sdp"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textDateOfBirthTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/editGender"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/dateOfBirthCol"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editDateOfBirth"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        style="@style/PrimaryEditText"
+        android:hint="@string/dateOfBirthCol"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textDateOfBirthTxt"
+        android:layout_marginTop="@dimen/_5sdp"
+        />
+
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textFatherNameTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/editDateOfBirth"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/fatherCol"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editFatherName"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        style="@style/PrimaryEditText"
+        android:hint="@string/fatherCol"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textFatherNameTxt"
+        android:layout_marginTop="@dimen/_5sdp"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textMotherNameTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/editFatherName"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/motherCol"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editMotherName"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        style="@style/PrimaryEditText"
+        android:hint="@string/motherCol"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textMotherNameTxt"
+        android:layout_marginTop="@dimen/_5sdp"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textSpouseNameTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/editMotherName"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/spouseCol"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editSpouseName"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        style="@style/PrimaryEditText"
+        android:hint="@string/spouseCol"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textSpouseNameTxt"
+        android:layout_marginTop="@dimen/_5sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textMarriageAnniversaryTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/editSpouseName"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/marriageAnniversaryCol"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editMarriageAnniversary"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        style="@style/PrimaryEditText"
+        android:hint="@string/marriageAnniversaryCol"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textMarriageAnniversaryTxt"
+        android:layout_marginTop="@dimen/_5sdp"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textIdentityNumberTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/editMarriageAnniversary"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/identityNumberCol"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editIdentityNumber"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        style="@style/PrimaryEditText"
+        android:hint="@string/identityNumberCol"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textIdentityNumberTxt"
+        android:layout_marginTop="@dimen/_5sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textPanNumberTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/editIdentityNumber"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/panNumberCol"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editPanNumber"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        style="@style/PrimaryEditText"
+        android:hint="@string/panNumberCol"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textPanNumberTxt"
+        android:layout_marginTop="@dimen/_5sdp"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textUanNumberTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/editPanNumber"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/uanNumberCol"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editUanNumber"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        style="@style/PrimaryEditText"
+        android:hint="@string/uanNumberCol"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textUanNumberTxt"
+        android:layout_marginTop="@dimen/_5sdp"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textPermanentaddressTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/editUanNumber"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/permanentAddressCol"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editPermanentaddress"
+        style="@style/PrimaryEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:gravity="top"
+        android:hint="@string/permanentAddressCol"
+        android:minHeight="@dimen/_80sdp"
+        android:paddingVertical="@dimen/_10sdp"
+        android:singleLine="false"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textPermanentaddressTxt"
+        android:maxLength="100"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textCountryofbirthTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/editPermanentaddress"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/countryofbirthCol"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editCountryofbirth"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        style="@style/PrimaryEditText"
+        android:hint="@string/countryofbirthCol"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textCountryofbirthTxt"
+        android:layout_marginTop="@dimen/_5sdp"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textBirthplaceTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/editCountryofbirth"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/birthplaceCol"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editBirthplace"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        style="@style/PrimaryEditText"
+        android:hint="@string/birthplaceCol"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textBirthplaceTxt"
+        android:layout_marginTop="@dimen/_5sdp"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textNationalityTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/editBirthplace"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/nationalityCol"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editNationality"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        style="@style/PrimaryEditText"
+        android:hint="@string/nationalityCol"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textNationalityTxt"
+        android:layout_marginTop="@dimen/_5sdp"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textPersonalemailTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/editNationality"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/personalemailCol"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editPersonalemail"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        style="@style/PrimaryEditText"
+        android:hint="@string/personalemailCol"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textPersonalemailTxt"
+        android:layout_marginTop="@dimen/_5sdp"
+        />
+
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textBloodgroupTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/editPersonalemail"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/bloodgroupCol"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editBloodgroup"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        style="@style/PrimaryEditText"
+        android:hint="@string/bloodgroupCol"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textBloodgroupTxt"
+        android:layout_marginTop="@dimen/_5sdp"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textEmergencymobileColTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/editBloodgroup"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/emergencymobileCol"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editEmergencymobile"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        style="@style/PrimaryEditText"
+        android:hint="@string/emergencymobileCol"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textEmergencymobileColTxt"
+        android:layout_marginTop="@dimen/_5sdp"
+        />
+
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textLastEducationTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/editEmergencymobile"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/lastEducationCol"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editLastEducation"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        style="@style/PrimaryEditText"
+        android:hint="@string/lastEducationCol"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textLastEducationTxt"
+        android:layout_marginTop="@dimen/_5sdp"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textGPATxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/editLastEducation"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/GPACol"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editGPA"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        style="@style/PrimaryEditText"
+        android:hint="@string/GPACol"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textGPATxt"
+        android:layout_marginTop="@dimen/_5sdp"
+        />
+
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textWorkExperienceTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/editGPA"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="@string/workExperienceCol"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editWorkExperience"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        style="@style/PrimaryEditText"
+        android:hint="@string/workExperienceCol"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textWorkExperienceTxt"
+        android:layout_marginTop="@dimen/_5sdp"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

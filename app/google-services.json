@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "605623453500",
+    "project_id": "hrms-67c3a",
+    "storage_bucket": "hrms-67c3a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605623453500:android:6c28758b1ace167f21c039",
+        "android_client_info": {
+          "package_name": "com.vegasega.hrms"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgXgoXSjwX3y3Lee_J4fOk4Jd8Mdid2go"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
