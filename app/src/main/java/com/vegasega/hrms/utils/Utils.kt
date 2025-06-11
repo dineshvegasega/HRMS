@@ -19,6 +19,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.location.Address
 import android.location.Geocoder
+import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
@@ -36,7 +37,11 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.DatePicker
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.TimePicker
 import androidx.annotation.DimenRes
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
@@ -87,8 +92,13 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.Period
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import java.util.Random
+import java.util.TimeZone
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 import kotlin.coroutines.resume
@@ -2016,9 +2026,9 @@ fun getAbbreviatedFromDateTime(dateTime: Calendar, field: String): String? {
     } catch (e: Exception) {
         e.printStackTrace()
     }
-
     return null
 }
+
 
 fun String.getMonthFromHindi() : String{
     if (this == "जन"){
@@ -2049,6 +2059,85 @@ fun String.getMonthFromHindi() : String{
         return this
     }
     return ""
+}
+
+
+ fun stringForTime(timeMs: Long): String {
+    val totalSeconds = timeMs / 1000
+    val seconds = totalSeconds % 60
+    val minutes = totalSeconds / 60 % 60
+    val hours = totalSeconds / 3600
+    return if (hours > 0) {
+        "%d:%02d:%02d".format(hours, minutes, seconds)
+    } else {
+        "%02d:%02d".format(minutes, seconds)
+    }
+}
+
+fun getLocalTime(dateTime: String?): String {
+    return try {
+        val timeServerFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss", Locale.ENGLISH)
+        val utcDateTime = LocalDateTime.parse(dateTime, timeServerFormatter).atZone(ZoneId.of("UTC"))
+        val localDateTime = utcDateTime.withZoneSameInstant(ZoneId.systemDefault())
+        val localFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss", Locale.ENGLISH)
+        localDateTime.format(localFormatter)
+    } catch (e: Exception) {
+        e.printStackTrace()
+        "Not Known"
+    }
+}
+
+fun timeConversion(s: String): String {
+    var hour = s.substring(0, 2).toInt() % 12
+    if (s.endsWith("PM")) hour += 12
+    return String.format("%02d", hour) + s.substring(2, 8)
+}
+
+fun Long.getDuration(): String {
+    val date = Date(this.toLong())
+    val formatter = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
+    formatter.setTimeZone(TimeZone.getTimeZone("UTC"))
+    return formatter.format(date)
+}
+
+
+
+fun isLocationEnabled(context: Context): Boolean {
+    val locationManager: LocationManager =
+        context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+            || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+}
+
+
+fun showGPSNotEnabledDialog(context: Context) {
+    AlertDialog.Builder(context)
+        .setTitle(context.getString(R.string.enable_gps))
+        .setMessage(context.getString(R.string.required_for_this_app))
+        .setCancelable(false)
+        .setPositiveButton(context.getString(R.string.enable_now)) { _, _ ->
+            context.startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+        }
+        .show()
+}
+
+
+@SuppressLint("SuspiciousIndentation")
+fun Activity.callPermissionDialogGPS(callBack: Intent.() -> Unit) {
+    MaterialAlertDialogBuilder(this, R.style.LogoutDialogTheme)
+        .setTitle(resources.getString(R.string.enable_gps))
+        .setMessage(resources.getString(R.string.required_for_this_app))
+        .setPositiveButton(resources.getString(R.string.enable_now)) { dialog, _ ->
+            dialog.dismiss()
+            callBack(Intent().apply {
+                action = Settings.ACTION_LOCATION_SOURCE_SETTINGS
+            })
+        }
+        .setNegativeButton(resources.getString(R.string.cancel)) { dialog, _ ->
+            dialog.dismiss()
+        }
+        .setCancelable(false)
+        .show()
 }
 
 

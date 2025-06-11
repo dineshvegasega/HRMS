@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import com.vegasega.hrms.R
 import com.vegasega.hrms.databinding.EmployeesLeaveRequestBinding
 import com.vegasega.hrms.datastore.DataStoreKeys.AUTH
 import com.vegasega.hrms.datastore.DataStoreUtil.readData
 import com.vegasega.hrms.screens.mainActivity.MainActivity
+import com.vegasega.hrms.utils.singleClick
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -46,8 +48,13 @@ class EmployeesLeaveRequest : Fragment() {
                 binding.recyclerView.adapter = viewModel.employeesLeaveRequestAdapter
                 viewModel.employeesLeaveRequestList() {
                     viewModel.employeesLeaveRequestAdapter.notifyDataSetChanged()
-                    viewModel.employeesLeaveRequestAdapter.submitList(this.attendances.data)
+                    viewModel.employeesLeaveRequestAdapter.submitList(this.data)
                 }
+
+                btCreate.singleClick {
+                    this.root.findNavController().navigate(R.id.action_employeesLeaveRequest_to_employeesLeaveRequestPost)
+                }
+
             }
 
         }

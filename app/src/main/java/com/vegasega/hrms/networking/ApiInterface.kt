@@ -18,7 +18,11 @@ import com.vegasega.hrms.models.ItemFormListDetail
 import com.vegasega.hrms.models.attendance.ItemAttendance
 import com.vegasega.hrms.models.attendance.ItemAttendanceList
 import com.vegasega.hrms.models.dashboard.ItemDashboard
+import com.vegasega.hrms.models.leave.ItemLeaveRequest
+import com.vegasega.hrms.models.leave.ItemLeaveRequestPost
+import com.vegasega.hrms.models.leave.viewLeave.ItemViewLeave
 import com.vegasega.hrms.models.profile.ItemProfile
+import com.vegasega.hrms.models.score.ItemEmployeeScore
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -64,15 +68,36 @@ interface ApiInterface {
     ): Response<ItemAttendanceList>
 
 
-    @GET(ATTENDANCES)
+    @GET(LEAVE_REQUESTS)
     suspend fun employeesLeaveRequestList(
-    ): Response<ItemAttendanceList>
+    ): Response<ItemLeaveRequest>
 
 
-    @POST(ATTENDANCES)
+    @GET(EMPLOYEE_SCORES)
+    suspend fun employeesPerformanceScoreList(
+    ): Response<ItemEmployeeScore>
+
+
+    @GET(LEAVE_REQUESTS+ "/{id}")
+    suspend fun employeesLeaveRequestGet(
+        @Path("id") id: String,
+    ): Response<ItemViewLeave>
+
+
+
+    @PUT(LEAVE_REQUESTS+ "/{id}")
+    suspend fun employeesLeaveRequestEdit(
+        @Path("id") id: String,
+        @Body hashMap: RequestBody
+    ): Response<ItemLeaveRequestPost>
+
+
+    @POST(LEAVE_REQUESTS)
     suspend fun employeesLeaveRequestPost(
         @Body hashMap: RequestBody
-    ): Response<ItemAttendance>
+    ): Response<ItemLeaveRequestPost>
+
+
 
     @Headers("Accept: application/json")
     @POST(VENDER_PROFILE_UPDATE+ "/{id}")

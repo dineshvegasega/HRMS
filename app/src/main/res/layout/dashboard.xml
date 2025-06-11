@@ -120,6 +120,21 @@
                         app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="HardcodedText" />
 
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textCheckInAddr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_8sdp"
+                        app:fontFamily="@font/roboto_light"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="HardcodedText" />
+
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -172,6 +187,21 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/_13sdp"
                         app:fontFamily="@font/roboto_bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="HardcodedText" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textCheckOutAddr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_8sdp"
+                        app:fontFamily="@font/roboto_light"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="HardcodedText" />

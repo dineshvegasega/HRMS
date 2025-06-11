@@ -1,20 +1,27 @@
 package com.vegasega.hrms.screens.main.employeesPerformanceScore
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.findNavController
 import com.google.gson.Gson
+import com.vegasega.hrms.R
 import com.vegasega.hrms.databinding.ItemEmployeeLeaveRequestBinding
+import com.vegasega.hrms.databinding.ItemEmployeePerformanceScoreBinding
 import com.vegasega.hrms.datastore.DataStoreKeys.PROFILE_DATA
 import com.vegasega.hrms.datastore.DataStoreUtil.readData
 import com.vegasega.hrms.genericAdapter.GenericAdapter
 import com.vegasega.hrms.models.attendance.Attendance
-import com.vegasega.hrms.models.attendance.ItemAttendanceList
+import com.vegasega.hrms.models.leave.ItemLeaveRequest
 import com.vegasega.hrms.models.profile.Profile
+import com.vegasega.hrms.models.score.Data
+import com.vegasega.hrms.models.score.ItemEmployeeScore
 import com.vegasega.hrms.networking.ApiInterface
 import com.vegasega.hrms.networking.CallHandler
 import com.vegasega.hrms.networking.Repository
+import com.vegasega.hrms.utils.singleClick
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -24,13 +31,13 @@ import javax.inject.Inject
 @HiltViewModel
 class EmployeesPerformanceScoreVM @Inject constructor(private val repository: Repository): ViewModel() {
 
-    fun employeesPerformanceScoreList(callBack: ItemAttendanceList.() -> Unit) = viewModelScope.launch {
+    fun employeesPerformanceScoreList(callBack: ItemEmployeeScore.() -> Unit) = viewModelScope.launch {
         repository.callApi(
-            callHandler = object : CallHandler<Response<ItemAttendanceList>> {
+            callHandler = object : CallHandler<Response<ItemEmployeeScore>> {
                 override suspend fun sendRequest(apiInterface: ApiInterface) =
-                    apiInterface.employeesLeaveRequestList()
+                    apiInterface.employeesPerformanceScoreList()
 
-                override fun success(response: Response<ItemAttendanceList>) {
+                override fun success(response: Response<ItemEmployeeScore>) {
                     if (response.isSuccessful) {
 //                        showSnackBar(response.body()!!.message)
                         callBack(response.body()!!)
@@ -50,51 +57,30 @@ class EmployeesPerformanceScoreVM @Inject constructor(private val repository: Re
 
 
 
-    val employeesPerformanceScoreAdapter = object : GenericAdapter<ItemEmployeeLeaveRequestBinding, Attendance>() {
+    val employeesPerformanceScoreAdapter = object : GenericAdapter<ItemEmployeePerformanceScoreBinding, Data>() {
         override fun onCreateView(
             inflater: LayoutInflater,
             parent: ViewGroup,
             viewType: Int
-        ) = ItemEmployeeLeaveRequestBinding.inflate(inflater, parent, false)
+        ) = ItemEmployeePerformanceScoreBinding.inflate(inflater, parent, false)
 
         override fun onBindHolder(
-            binding: ItemEmployeeLeaveRequestBinding,
-            model: Attendance,
+            binding: ItemEmployeePerformanceScoreBinding,
+            model: Data,
             position: Int
         ) {
             binding.apply {
-                readData(PROFILE_DATA) { profile ->
-                    if (profile != null) {
-                        val data = Gson().fromJson(profile, Profile::class.java)
-                        textTitle.setText("Employee Name: "+data?.name ?: "")
-                    }
-                }
+                textTitle.setText("Employee Name: "+model?.employee?.name ?: "")
+                texDisciplineValue.setText(""+model?.score ?: "")
+                textHardworkingValue.setText(""+model?.scored_by?.department_id ?: "")
+                textScoredBy.setText("Scored By: "+model?.scored_by?.name ?: "")
+                textDateValue.setText("Date: "+model?.created_at ?: "")
 
-//                var inOut = if(model?.attendance_time_id == 1)
-//                    "IN"
-//                else if(model?.attendance_time_id == 2)
-//                    "OUT"
-//                else "" ?: ""
-//                textInOut.setText("In / Out: "+inOut)
-//
-//                var type = if(model?.attendance_type_id == 1)
-//                    "ONTIME"
-//                else if(model?.attendance_type_id == 2)
-//                    "LATE"
-//                else if(model?.attendance_type_id == 3)
-//                    "OVERTIME"
-//                else if(model?.attendance_type_id == 4)
-//                    "SICK"
-//                else if(model?.attendance_type_id == 5)
-//                    "ABSENT"
-//                else if(model?.attendance_type_id == 6)
-//                    "ON_LEAVE_DAYS"
-//                else if(model?.attendance_type_id == 7)
-//                    "HALF_DAY"
-//                else "" ?: ""
-//                textType.setText("Type: "+type)
-//                textMessage.setText("Message: "+model?.message ?: "")
-//                textDate.setText("Date: "+model?.created_at ?: "")
+                this.root.singleClick {
+                    this.root.findNavController().navigate(R.id.action_employeesPerformanceScore_to_employeesPerformanceScoreDetail, Bundle().apply {
+                        putParcelable("key", model)
+                    })
+                }
             }
         }
     }

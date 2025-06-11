@@ -26,6 +26,9 @@ const val RESEND_OTP = "resend-otp"
 const val PASSWORD_UPDATE = "password-update"
 const val ATTENDANCES = "attendances"
 const val DASHBOARD = "dashboard"
+const val LEAVE_REQUESTS = "leave-requests"
+const val EMPLOYEE_SCORES = "employee-scores"
+
 
 const val ADD_SCHEME_DETAIL = "add-scheme-detail"
 const val CREATE_FORM = "add-scheme?"

@@ -19,7 +19,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        tools:listitem="@layout/item_departments"
+        tools:listitem="@layout/item_policies"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/inclide_header_search"

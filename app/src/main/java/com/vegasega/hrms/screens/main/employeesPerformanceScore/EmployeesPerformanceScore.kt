@@ -45,7 +45,7 @@ class EmployeesPerformanceScore : Fragment() {
                 binding.recyclerView.adapter = viewModel.employeesPerformanceScoreAdapter
                 viewModel.employeesPerformanceScoreList() {
                     viewModel.employeesPerformanceScoreAdapter.notifyDataSetChanged()
-                    viewModel.employeesPerformanceScoreAdapter.submitList(this.attendances.data)
+                    viewModel.employeesPerformanceScoreAdapter.submitList(this.data)
                 }
             }
 

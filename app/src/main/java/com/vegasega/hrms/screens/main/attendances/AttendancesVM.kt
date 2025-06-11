@@ -26,6 +26,7 @@ import com.vegasega.hrms.networking.ApiInterface
 import com.vegasega.hrms.networking.CallHandler
 import com.vegasega.hrms.networking.Repository
 import com.vegasega.hrms.networking.getJsonRequestBody
+import com.vegasega.hrms.utils.getLocalTime
 import com.vegasega.hrms.utils.loadImage
 import com.vegasega.hrms.utils.showSnackBar
 import com.vegasega.hrms.utils.singleClick
@@ -113,7 +114,11 @@ class AttendancesVM @Inject constructor(private val repository: Repository): Vie
                 else "" ?: ""
                 textType.setText("Type: "+type)
                 textMessage.setText("Message: "+model?.message ?: "")
-                textDate.setText("Date: "+model?.created_at ?: "")
+//                textDate.setText("Date: "+model?.created_at ?: "")
+
+                var dd = getLocalTime(model?.created_at)
+
+                textDate.setText("Time: "+dd)
             }
         }
     }

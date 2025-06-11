@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.vegasega.hrms.R
-import com.vegasega.hrms.databinding.ChangeMobileBinding
 import com.vegasega.hrms.databinding.RecruitmentsBinding
+import com.vegasega.hrms.datastore.DataStoreKeys.AUTH
+import com.vegasega.hrms.datastore.DataStoreUtil.readData
 import com.vegasega.hrms.screens.mainActivity.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.getValue
@@ -35,6 +36,17 @@ class Recruitments : Fragment() {
         binding.apply {
             inclideHeaderSearch.textHeaderTxt.text = getString(R.string.recruitments)
             idDataNotFound.textDesc.text = getString(R.string.currently_no_schemes)
+            inclideHeaderSearch.editTextSearch.visibility = View.GONE
+
+            readData(AUTH) { token ->
+//                Log.e("TAG", "btCheckOut " + token)
+                recyclerView.setHasFixedSize(true)
+                binding.recyclerView.adapter = viewModel.recruitmentsAdapter
+                viewModel.recruitmentsList() {
+                    viewModel.recruitmentsAdapter.notifyDataSetChanged()
+                    viewModel.recruitmentsAdapter.submitList(this.data)
+                }
+            }
         }
     }
 }

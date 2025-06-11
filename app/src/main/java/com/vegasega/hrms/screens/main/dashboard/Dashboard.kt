@@ -1,6 +1,10 @@
 package com.vegasega.hrms.screens.main.dashboard
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.location.Location
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,10 +12,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresPermission
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.LatLng
 import com.vegasega.hrms.R
 import com.vegasega.hrms.databinding.DashboardBinding
 import com.vegasega.hrms.datastore.DataStoreKeys.AUTH
@@ -21,7 +31,15 @@ import com.vegasega.hrms.networking.getJsonRequestBody
 import com.vegasega.hrms.screens.mainActivity.MainActivity
 import com.vegasega.hrms.screens.mainActivity.MainActivity.Companion.networkFailed
 import com.vegasega.hrms.utils.callNetworkDialog
+import com.vegasega.hrms.utils.callPermissionDialog
+import com.vegasega.hrms.utils.callPermissionDialogGPS
 import com.vegasega.hrms.utils.changeDateFormat
+import com.vegasega.hrms.utils.getAddress
+import com.vegasega.hrms.utils.getDuration
+import com.vegasega.hrms.utils.getLocalTime
+import com.vegasega.hrms.utils.isLocationEnabled
+import com.vegasega.hrms.utils.mainThread
+import com.vegasega.hrms.utils.showOptions
 import com.vegasega.hrms.utils.singleClick
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONObject
@@ -31,6 +49,7 @@ import java.util.Collections
 import java.util.Date
 import java.util.Locale
 import java.util.Timer
+import java.util.concurrent.TimeUnit
 import kotlin.collections.forEach
 import kotlin.math.abs
 
@@ -40,7 +59,7 @@ class Dashboard : Fragment() {
     private val viewModel: DashboardVM by viewModels()
     private var _binding: DashboardBinding? = null
     private val binding get() = _binding!!
-
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
     var timer = Timer()
 
     var startTime = ""
@@ -51,6 +70,11 @@ class Dashboard : Fragment() {
 
     var breakInTime = ""
     var prevBreakInTimeMillsTotal: Long = 0
+
+
+    var imagePosition = 0
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -67,13 +91,13 @@ class Dashboard : Fragment() {
 //        }
 //    }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // val menuHost: MenuHost = requireActivity()
         //createMenu(menuHost)
         MainActivity.mainActivity.get()?.callFragment(1)
-
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         binding.apply {
 
             binding.recyclerViewBirthday.setHasFixedSize(true)
@@ -145,38 +169,31 @@ class Dashboard : Fragment() {
 
 
 
-
-
-            btCheckIn.setEnabled(false)
+            btCheckIn.setEnabled(true)
             btCheckIn.singleClick {
-                readData(AUTH) { token ->
-                    Log.e("TAG", "btCheckIn " + token)
-                    val obj: JSONObject = JSONObject().apply {
-                        put("message", "Arrived at work")
-                        put("attendance_time_id", 1)
-                        put("sick", 0)
-                    }
-                    viewModel.attendances(obj.getJsonRequestBody()) {
-                        textCheckIn.setText(this.created_at)
-                        callAttendancesList()
-                    }
-                }
+                imagePosition = 1
+                callMediaPermissionsWithLocation()
+//                fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+//                    var latLong = LatLng(location!!.latitude, location.longitude)
+//                }
+//                readData(AUTH) { token ->
+//                    Log.e("TAG", "btCheckIn " + token)
+//                    val obj: JSONObject = JSONObject().apply {
+//                        put("message", "Arrived at work")
+//                        put("attendance_time_id", 1)
+//                        put("sick", 0)
+//                    }
+//                    viewModel.attendances(obj.getJsonRequestBody()) {
+//                        textCheckIn.setText(getLocalTime(this.created_at))
+//                        callAttendancesList()
+//                    }
+//                }
             }
 
-            btCheckOut.setEnabled(false)
+            btCheckOut.setEnabled(true)
             btCheckOut.singleClick {
-                readData(AUTH) { token ->
-                    Log.e("TAG", "btCheckOut " + token)
-                    val obj: JSONObject = JSONObject().apply {
-                        put("message", "Leave at work")
-                        put("attendance_time_id", 2)
-                        put("sick", 0)
-                    }
-                    viewModel.attendances(obj.getJsonRequestBody()) {
-                        textCheckOut.setText(this.created_at)
-                        callAttendancesList()
-                    }
-                }
+                imagePosition = 2
+                callMediaPermissionsWithLocation()
             }
 
 
@@ -189,7 +206,7 @@ class Dashboard : Fragment() {
                         put("sick", 0)
                     }
                     viewModel.attendances(obj.getJsonRequestBody()) {
-                        textCheckIn.setText(this.created_at)
+                        textCheckIn.setText(getLocalTime(this.created_at))
                         callAttendancesList()
                     }
                 }
@@ -204,7 +221,7 @@ class Dashboard : Fragment() {
                         put("sick", 0)
                     }
                     viewModel.attendances(obj.getJsonRequestBody()) {
-                        textCheckIn.setText(this.created_at)
+                        textCheckIn.setText(getLocalTime(this.created_at))
                         callAttendancesList()
                     }
                 }
@@ -267,19 +284,19 @@ class Dashboard : Fragment() {
     private fun callAttendancesList() {
         readData(AUTH) { token ->
             viewModel.attendancesList() {
-                if (this.attendances.data.size > 0){
+                if (this.attendances.data.size > 0) {
                     val sdf = SimpleDateFormat("dd-MM-yyyy")
                     val currentDate = sdf.format(Date())
 
                     val dataAttendanceIn: ArrayList<Attendance> = ArrayList()
                     val dataAttendanceOut: ArrayList<Attendance> = ArrayList()
-                    val breakIn : ArrayList<Attendance> = ArrayList()
-                    val breakOut : ArrayList<Attendance> = ArrayList()
+                    val breakIn: ArrayList<Attendance> = ArrayList()
+                    val breakOut: ArrayList<Attendance> = ArrayList()
                     var allList = this.attendances.data
                     Collections.reverse(allList)
 
                     this.attendances.data.forEach {
-                        if (it.created_at.contains(currentDate)) {
+                        if (getLocalTime(it.created_at).contains(currentDate)) {
                             Log.e("TAG", "attendancesid " + it.id)
 
                             if (it.attendance_time_id == 1) {
@@ -301,10 +318,10 @@ class Dashboard : Fragment() {
                     }
 
 
-                    if (dataAttendanceIn.size > 0){
+                    if (dataAttendanceIn.size > 0) {
                         var first = dataAttendanceIn.first()
                         Log.e("TAG", "attendancesfirst " + first.toString())
-                        binding.textCheckIn.text = first.created_at
+                        binding.textCheckIn.text = getLocalTime(first.created_at)
                     }
 
 
@@ -313,12 +330,13 @@ class Dashboard : Fragment() {
                         var millsTotal: Long = 0
                         var counter = 0
                         dataAttendanceOut.forEach {
-                            var timeIn = dataAttendanceIn[counter].created_at
-                            var timeOut = dataAttendanceOut[counter].created_at
+                            var timeIn = getLocalTime(dataAttendanceIn[counter].created_at)
+                            var timeOut = getLocalTime(dataAttendanceOut[counter].created_at)
                             Log.e("TAG", "timeIn " + timeIn)
                             Log.e("TAG", "timeOut " + timeOut)
 
-                            val formatter = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
+                            val formatter =
+                                SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
                             val datestart: Date = formatter.parse(timeIn)
                             val dateend: Date = formatter.parse(timeOut)
 
@@ -329,12 +347,12 @@ class Dashboard : Fragment() {
                             counter = counter + 1
                         }
 
-                        var timeIn = dataAttendanceIn[dataAttendanceIn.size - 1].created_at
+                        var timeIn =
+                            getLocalTime(dataAttendanceIn[dataAttendanceIn.size - 1].created_at)
                         Log.e("TAG", "timeIntimeIn " + timeIn)
                         binding.textNumberTime.text = ""
                         endTime = timeIn
                         type = 1
-//                        isBreakType = 1
                         prevMillsTotal = millsTotal
                         Log.e("TAG", "11111111111111111 ")
                         binding.textCheckOut.text = ""
@@ -344,36 +362,61 @@ class Dashboard : Fragment() {
                         var millsTotal: Long = 0
                         var counter = 0
                         dataAttendanceIn.forEach {
-                            var timeIn = it.created_at
-                            var timeOut = dataAttendanceOut[counter].created_at
+                            var timeIn = getLocalTime(it.created_at)
+                            var timeOut = getLocalTime(dataAttendanceOut[counter].created_at)
                             Log.e("TAG", "timeIn " + timeIn)
                             Log.e("TAG", "timeOut " + timeOut)
 
-                            val formatter = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
-                            val datestart: Date = formatter.parse(timeIn)
-                            val dateend: Date = formatter.parse(timeOut)
+//                            val formatter = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
+//                            val datestart: Date = formatter.parse(timeIn)
+//                            val dateend: Date = formatter.parse(timeOut)
+//
+//                            val millse: Long = datestart.getTime() - dateend.getTime()
 
-                            val millse: Long = datestart.getTime() - dateend.getTime()
 
-                            millsTotal = millsTotal + millse
-                            val millsTotalTime = abs(millsTotal.toDouble()).toLong()
-                            var mills = millsTotalTime
-                            val hours = (mills / (1000 * 60 * 60)).toInt()
-                            val mins = (mills / (1000 * 60)).toInt() % 60
-                            val secs = ((mills / 1000).toInt() % 60).toLong()
+                            val format = SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
+                            val date1 = format.parse(timeIn)
+                            val date2 = format.parse(timeOut)
+                            val difference = date2.getTime() - date1.getTime()
+                            Log.e("TAG", "calBreakIndiffdifference" + difference)
 
-                            var dateTime =
-                                "" + (if (hours.toString().length == 1) "0" + hours else hours) + ":" + (if (mins.toString().length == 1) "0" + mins else mins) + ":" + (if (secs.toString().length == 1) "0" + secs else secs)
-                            Log.e("TAG", "differenceTimeAAAAAAAAA " + dateTime)
+                            var ss = String.format(
+                                "%02d:%02d:%02d",
+                                TimeUnit.MILLISECONDS.toHours(difference),
+                                TimeUnit.MILLISECONDS.toMinutes(difference) -
+                                        TimeUnit.HOURS.toMinutes(
+                                            TimeUnit.MILLISECONDS.toHours(
+                                                difference
+                                            )
+                                        ), // The change is in this line
+                                TimeUnit.MILLISECONDS.toSeconds(difference) -
+                                        TimeUnit.MINUTES.toSeconds(
+                                            TimeUnit.MILLISECONDS.toMinutes(
+                                                difference
+                                            )
+                                        )
+                            );
+                            Log.e("TAG", "ssQQQQQ " + ss)
+
+                            millsTotal = millsTotal + difference
+//                            val millsTotalTime = abs(millsTotal.toDouble()).toLong()
+//                            var mills = millsTotalTime
+//                            val hours = (mills / (1000 * 60 * 60)).toInt()
+//                            val mins = (mills / (1000 * 60)).toInt() % 60
+//                            val secs = ((mills / 1000).toInt() % 60).toLong()
+//
+//                            var dateTime =
+//                                "" + (if (hours.toString().length == 1) "0" + hours else hours) + ":" + (if (mins.toString().length == 1) "0" + mins else mins) + ":" + (if (secs.toString().length == 1) "0" + secs else secs)
+//                            Log.e("TAG", "differenceTimeAAAAAAAAA " + dateTime)
                             counter = counter + 1
                         }
                         prevMillsTotal = millsTotal
-                        type = 2
-//                        isBreakType = 2
-                        if (dataAttendanceIn.size > 0){
+                        type = 3
+                        if (dataAttendanceIn.size > 0) {
                             var last = dataAttendanceOut.last()
                             Log.e("TAG", "attendanceslast " + last.toString())
-                            binding.textCheckOut.text = last.created_at
+                            binding.textCheckOut.text = getLocalTime(last.created_at)
+                            type = 2
                         }
                         stop()
                         start()
@@ -381,11 +424,8 @@ class Dashboard : Fragment() {
                     }
 
 
-
-
-
-//Break/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    if (breakIn.size > 0){
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    if (breakIn.size > 0) {
                         var firstIn = breakIn.first()
 
 //                        Log.e("TAG", "attendancesfirst " + firstIn.toString())
@@ -394,26 +434,29 @@ class Dashboard : Fragment() {
 //                        Log.e("TAG", "attendanceslast " + lastOut.toString())
 
 
-                        if (breakIn.size > breakOut.size){
-                            var millsTotal : Long = 0
+                        if (breakIn.size > breakOut.size) {
+                            var millsTotal: Long = 0
                             var counter = 0
                             breakIn.forEach {
-                                var timeIn = breakIn[counter].created_at
+                                var timeIn = getLocalTime(breakIn[counter].created_at)
 
-                                if (breakOut.size != 0){
+                                if (breakOut.size != 0) {
                                     try {
-                                        var timeOut = breakOut[counter].created_at
+                                        var timeOut = getLocalTime(breakOut[counter].created_at)
 //                                        Log.e("TAG", "timeIn " + timeIn)
 //                                        Log.e("TAG", "timeOut " + timeOut)
 
-                                        val formatter = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
+                                        val formatter = SimpleDateFormat(
+                                            "dd-MM-yyyy HH:mm:ss",
+                                            Locale.getDefault()
+                                        )
                                         val datestart: Date = formatter.parse(timeIn)
                                         val dateend: Date = formatter.parse(timeOut)
 
                                         val millse: Long = datestart.getTime() - dateend.getTime()
 
                                         millsTotal = millsTotal + millse
-                                    } catch (e : Exception){
+                                    } catch (e: Exception) {
 
                                     }
                                     counter = counter + 1
@@ -424,7 +467,7 @@ class Dashboard : Fragment() {
                             prevBreakInTimeMillsTotal = millsTotal
                             isBreakType = 1
 
-                            var timeIn = breakIn[breakIn.size - 1].created_at
+                            var timeIn = getLocalTime(breakIn[breakIn.size - 1].created_at)
 
                             breakInTime = timeIn
 ////                            Log.e("TAG", "timeIntimeIn " + timeIn)
@@ -452,17 +495,17 @@ class Dashboard : Fragment() {
 //                            Log.e("TAG", "differenceTimeA " + dateTime)
 
 
-
                         } else {
-                            var millsTotal : Long = 0
+                            var millsTotal: Long = 0
                             var counter = 0
                             breakIn.forEach {
-                                var timeIn = it.created_at
-                                var timeOut = breakOut[counter].created_at
+                                var timeIn = getLocalTime(it.created_at)
+                                var timeOut = getLocalTime(breakOut[counter].created_at)
 //                                Log.e("TAG", "timeIn " + timeIn)
 //                                Log.e("TAG", "timeOut " + timeOut)
 
-                                val formatter = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
+                                val formatter =
+                                    SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
                                 val datestart: Date = formatter.parse(timeIn)
                                 val dateend: Date = formatter.parse(timeOut)
 
@@ -502,8 +545,9 @@ class Dashboard : Fragment() {
         }
     }
 
+
     val task = {
-        updateTimer(startTime, endTime, type)
+//        updateTimer(startTime, endTime, type)
         start()
     }
 
@@ -572,19 +616,23 @@ class Dashboard : Fragment() {
 
                     binding.textNumberTime.text = dateTime
                     binding.linearTime.visibility = View.VISIBLE
-
+                    binding.linearTime.visibility = View.VISIBLE
 
 
                     binding.linearBreakInOut.visibility = View.VISIBLE
 //                    binding.linearBreakTime.visibility = View.VISIBLE
+                    binding.btCheckIn.setEnabled(false)
+                    binding.btCheckOut.setEnabled(true)
+                    Log.e("TAG", "isBreakTypeisBreakType " + isBreakType)
 
-//                    if (isBreakType == 1){
-//                        binding.btCheckIn.setEnabled(false)
-//                        binding.btCheckOut.setEnabled(false)
-//
-//                        binding.btBreakIn.setEnabled(false)
-//                        binding.btBreakOut.setEnabled(true)
-//
+
+                    if (isBreakType == 1) {
+                        binding.btCheckIn.setEnabled(false)
+
+
+                        binding.btBreakIn.setEnabled(false)
+                        binding.btBreakOut.setEnabled(true)
+
 //
 //                        val formatter = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
 //                        val datestart: Date = formatter.parse(breakInTime)
@@ -596,44 +644,67 @@ class Dashboard : Fragment() {
 //
 //
 ////                            Log.e("TAG", "diffdiffdiffdiffBBB " + diff)
-//
-//
-//                        val millsTotalTime = abs(prevBreakInTimeMillsTotal.toDouble()).toLong()
-////                            Log.e("TAG", "diffdiffdiffdiffAAA " + millsTotalTime)
-//                        var mills = millsTotalTime + diff
-//                        val hours = (mills / (1000 * 60 * 60)).toInt()
-//                        val mins = (mills / (1000 * 60)).toInt() % 60
-//                        val secs = ((mills / 1000).toInt() % 60).toLong()
-//
-//                        var dateTime =
-//                            "" + (if (hours.toString().length == 1) "0" + hours else hours) + ":" + (if (mins.toString().length == 1) "0" + mins else mins) + ":" + (if (secs.toString().length == 1) "0" + secs else secs)
-//                        Log.e("TAG", "differenceTimeA " + dateTime)
-//
-//                        binding.linearBreakTime.visibility = View.VISIBLE
-//                        binding.textNumberBreakTime.text = dateTime
-//
-//                    } else if (isBreakType == 2){
-//                            val mills = abs(prevBreakInTimeMillsTotal.toDouble()).toLong()
-//                            val hours = (mills / (1000 * 60 * 60)).toInt()
-//                            val mins = (mills / (1000 * 60)).toInt() % 60
-//                            val secs = ((mills / 1000).toInt() % 60).toLong()
-//
-//                            var dateTime =
-//                                "" + (if (hours.toString().length == 1) "0" + hours else hours) + ":" + (if (mins.toString().length == 1) "0" + mins else mins) + ":" + (if (secs.toString().length == 1) "0" + secs else secs)
-//                            Log.e("TAG", "differenceTimeB " + dateTime)
-//
-//                        binding.linearBreakTime.visibility = View.VISIBLE
-//                        binding.textNumberBreakTime.text = dateTime
-//
-//                        binding.btCheckIn.setEnabled(false)
-//                        binding.btCheckOut.setEnabled(true)
-//
-//                        binding.btBreakIn.setEnabled(true)
-//                        binding.btBreakOut.setEnabled(false)
-//                    }
 
 
-                } else {
+                        var cal = Calendar.getInstance()
+                        cal.time = Date()
+                        var timeInA = getLocalTime(cal.timeInMillis.getDuration())
+                        Log.e("TAG", "timeInA " + timeInA)
+
+//        val time1 = "06-06-2025 01:52:06"
+//        val time2 = "06-06-2025 03:15:00"
+
+                        val format = SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
+                        val date1 = format.parse(breakInTime)
+                        val date2 = format.parse(timeInA)
+                        val difference = date2.getTime() - date1.getTime()
+
+
+                        val millsTotalTime = abs(prevBreakInTimeMillsTotal.toDouble()).toLong()
+//                            Log.e("TAG", "diffdiffdiffdiffAAA " + millsTotalTime)
+                        var mills = millsTotalTime + difference
+                        val hours = (mills / (1000 * 60 * 60)).toInt()
+                        val mins = (mills / (1000 * 60)).toInt() % 60
+                        val secs = ((mills / 1000).toInt() % 60).toLong()
+
+                        var dateTime =
+                            "" + (if (hours.toString().length == 1) "0" + hours else hours) + ":" + (if (mins.toString().length == 1) "0" + mins else mins) + ":" + (if (secs.toString().length == 1) "0" + secs else secs)
+                        Log.e("TAG", "differenceTimeA " + dateTime)
+
+                        binding.linearBreakTime.visibility = View.VISIBLE
+                        binding.textNumberBreakTime.text = dateTime
+
+                        binding.btCheckIn.setEnabled(false)
+                        binding.btCheckOut.setEnabled(false)
+
+                    } else if (isBreakType == 2) {
+                        val mills = abs(prevBreakInTimeMillsTotal.toDouble()).toLong()
+                        val hours = (mills / (1000 * 60 * 60)).toInt()
+                        val mins = (mills / (1000 * 60)).toInt() % 60
+                        val secs = ((mills / 1000).toInt() % 60).toLong()
+
+                        var dateTime =
+                            "" + (if (hours.toString().length == 1) "0" + hours else hours) + ":" + (if (mins.toString().length == 1) "0" + mins else mins) + ":" + (if (secs.toString().length == 1) "0" + secs else secs)
+                        Log.e("TAG", "differenceTimeB " + dateTime)
+
+                        binding.linearBreakTime.visibility = View.VISIBLE
+                        binding.textNumberBreakTime.text = dateTime
+
+                        binding.btCheckIn.setEnabled(false)
+                        binding.btCheckOut.setEnabled(true)
+
+                        binding.btBreakIn.setEnabled(true)
+                        binding.btBreakOut.setEnabled(false)
+                    } else if (isBreakType == 0) {
+                        binding.btBreakOut.setEnabled(false)
+                    }
+
+                }
+
+
+
+
+                if (type == 2) {
                     val mills = abs(prevMillsTotal.toDouble()).toLong()
                     val hours = (mills / (1000 * 60 * 60)).toInt()
                     val mins = (mills / (1000 * 60)).toInt() % 60
@@ -652,12 +723,23 @@ class Dashboard : Fragment() {
 
                     binding.linearBreakInOut.visibility = View.GONE
                     binding.linearBreakTime.visibility = View.GONE
+
+
                 }
 
 
+                if (type == 3) {
+                    binding.textNumberTime.text = ""
+                    binding.linearTime.visibility = View.VISIBLE
 
+                    binding.btCheckIn.setEnabled(true)
+                    binding.btCheckOut.setEnabled(false)
 
+                    binding.linearBreakInOut.visibility = View.GONE
+                    binding.linearBreakTime.visibility = View.GONE
+                    binding.linearTime.visibility = View.GONE
 
+                }
 
 
 //                var dateTime2 =
@@ -706,6 +788,131 @@ class Dashboard : Fragment() {
 
             }
 
+        }
+    }
+
+
+    private fun callMediaPermissionsWithLocation() {
+        if (isLocationEnabled(requireActivity()) == true) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                Log.e("TAG", "AAAAAAAAAAA")
+                activityResultLauncherWithLocation.launch(
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    )
+                )
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                Log.e("TAG", "BBBBBBBBB")
+                activityResultLauncherWithLocation.launch(
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    )
+                )
+            } else {
+                Log.e("TAG", "CCCCCCCCC")
+                activityResultLauncherWithLocation.launch(
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    )
+                )
+            }
+        } else {
+            requireActivity().callPermissionDialogGPS {
+                someActivityResultLauncherWithLocationGPS.launch(this)
+            }
+        }
+    }
+
+
+    @SuppressLint("MissingPermission")
+    private val activityResultLauncherWithLocation =
+        registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        )
+        { permissions ->
+            if (!permissions.entries.toString().contains("false")) {
+
+                if (imagePosition == 1) {
+                    Log.e("TAG", "AAAAAAAAAAA")
+                    checkInMethod()
+                } else if (imagePosition == 2) {
+                    Log.e("TAG", "BBBBBBBBBBB")
+                    checkOutMethod()
+                }
+            } else {
+                requireActivity().callPermissionDialog {
+                    someActivityResultLauncherWithLocation.launch(this)
+                }
+            }
+        }
+
+
+    var someActivityResultLauncherWithLocation = registerForActivityResult<Intent, ActivityResult>(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        callMediaPermissionsWithLocation()
+    }
+
+    var someActivityResultLauncherWithLocationGPS =
+        registerForActivityResult<Intent, ActivityResult>(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            Log.e("TAG", "result.resultCode " + result.resultCode)
+            callMediaPermissionsWithLocation()
+        }
+
+
+    @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
+    fun checkInMethod() {
+        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+            var latLong = LatLng(location!!.latitude, location.longitude)
+            Log.e("TAG", "latLong1111 " + latLong)
+            mainThread {
+                binding.textCheckInAddr.text =
+                    getString(R.string.geAddress) + " " + requireActivity().getAddress(latLong)
+
+                readData(AUTH) { token ->
+                    Log.e("TAG", "btCheckOut " + token)
+                    val obj: JSONObject = JSONObject().apply {
+                        put("message", "Arrived at work")
+                        put("attendance_time_id", 1)
+                        put("sick", 0)
+                    }
+//                    viewModel.attendances(obj.getJsonRequestBody()) {
+//                        binding.textCheckIn.setText(getLocalTime(this.created_at))
+//                        callAttendancesList()
+//                    }
+                }
+            }
+        }
+
+    }
+
+    @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
+    fun checkOutMethod() {
+        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+            var latLong = LatLng(location!!.latitude, location.longitude)
+            Log.e("TAG", "latLong2222 " + latLong)
+            mainThread {
+                binding.textCheckOutAddr.text =
+                    getString(R.string.geAddress) + " " + requireActivity().getAddress(latLong)
+
+                readData(AUTH) { token ->
+                    Log.e("TAG", "btCheckOut " + token)
+                    val obj: JSONObject = JSONObject().apply {
+                        put("message", "Leave at work")
+                        put("attendance_time_id", 2)
+                        put("sick", 0)
+                    }
+//                    viewModel.attendances(obj.getJsonRequestBody()) {
+//                        binding.textCheckOut.setText(getLocalTime(this.created_at))
+//                        callAttendancesList()
+//                    }
+                }
+            }
         }
     }
 

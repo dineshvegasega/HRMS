@@ -179,8 +179,8 @@
                 >
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/ivProfileImage"
-                    android:layout_width="@dimen/_120sdp"
-                    android:layout_height="@dimen/_120sdp"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_100sdp"
                     app:srcCompat="@drawable/no_image_modified"
                     android:theme="@style/RoundCorner50"
                     android:scaleType="centerCrop"
@@ -345,6 +345,13 @@
 
 
 
+            <include layout="@layout/include_profile_info"
+                android:id="@+id/include_profile_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/editTextAddress"
+                android:visibility="visible"
+                />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

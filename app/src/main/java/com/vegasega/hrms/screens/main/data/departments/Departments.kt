@@ -6,11 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import com.vegasega.hrms.R
 import com.vegasega.hrms.databinding.ChangeMobileBinding
 import com.vegasega.hrms.databinding.DepartmentsBinding
+import com.vegasega.hrms.datastore.DataStoreKeys.AUTH
+import com.vegasega.hrms.datastore.DataStoreUtil.readData
 import com.vegasega.hrms.screens.main.data.DataVM
 import com.vegasega.hrms.screens.mainActivity.MainActivity
+import com.vegasega.hrms.utils.singleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.getValue
 
@@ -36,17 +40,22 @@ class Departments : Fragment() {
         binding.apply {
             inclideHeaderSearch.textHeaderTxt.text = getString(R.string.departmentsData)
             idDataNotFound.textDesc.text = getString(R.string.currently_no_schemes)
+            inclideHeaderSearch.editTextSearch.visibility = View.GONE
 
-//            loadFirstPage()
-//            recyclerView.setHasFixedSize(true)
-//            binding.recyclerView.adapter = viewModel.adapter
-//            binding.recyclerView.itemAnimator = DefaultItemAnimator()
-//
-//            observerDataRequest()
-//
-//            recyclerViewScroll()
-//
-//            searchHandler()
+            readData(AUTH) { token ->
+//                Log.e("TAG", "btCheckOut " + token)
+                recyclerView.setHasFixedSize(true)
+                binding.recyclerView.adapter = viewModel.departmentsAdapter
+                viewModel.departmentsList() {
+                    viewModel.departmentsAdapter.notifyDataSetChanged()
+                    viewModel.departmentsAdapter.submitList(this.data)
+                }
+
+//                btCreate.singleClick {
+//                    this.root.findNavController().navigate(R.id.action_employeesLeaveRequest_to_employeesLeaveRequestPost)
+//                }
+
+            }
         }
 
     }

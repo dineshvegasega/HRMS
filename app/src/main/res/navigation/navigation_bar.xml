@@ -862,6 +862,18 @@
         android:label="EmployeesPerformanceScore"
         android:id="@+id/employeesPerformanceScore"
         tools:layout="@layout/employees_performance_score">
+        <action
+            android:id="@+id/action_employeesPerformanceScore_to_employeesPerformanceScoreDetail"
+            app:destination="@id/employeesPerformanceScoreDetail"
+            app:launchSingleTop="true"
+            />
+    </fragment>
+
+    <fragment
+        android:name="com.vegasega.hrms.screens.main.employeesPerformanceScore.EmployeesPerformanceScoreDetail"
+        android:label="EmployeesPerformanceScoreDetail"
+        android:id="@+id/employeesPerformanceScoreDetail"
+        tools:layout="@layout/employees_performance_score">
     </fragment>
 
     <fragment
@@ -869,6 +881,32 @@
         android:label="EmployeesLeaveRequest"
         android:id="@+id/employeesLeaveRequest"
         tools:layout="@layout/employees_leave_request">
+        <action
+            android:id="@+id/action_employeesLeaveRequest_to_employeesLeaveRequestDetail"
+            app:destination="@id/employeesLeaveRequestDetail"
+            app:launchSingleTop="true"
+            />
+        <action
+            android:id="@+id/action_employeesLeaveRequest_to_employeesLeaveRequestPost"
+            app:destination="@id/employeesLeaveRequestPost"
+            app:launchSingleTop="true"
+            />
+    </fragment>
+
+    <fragment
+        android:name="com.vegasega.hrms.screens.main.employeesLeaveRequest.EmployeesLeaveRequestDetail"
+        android:label="EmployeesLeaveRequestDetail"
+        android:id="@+id/employeesLeaveRequestDetail"
+        tools:layout="@layout/employees_leave_request_detail">
+
+    </fragment>
+
+    <fragment
+        android:name="com.vegasega.hrms.screens.main.employeesLeaveRequest.EmployeesLeaveRequestPost"
+        android:label="EmployeesLeaveRequestPost"
+        android:id="@+id/employeesLeaveRequestPost"
+        tools:layout="@layout/employees_leave_request_post">
+
     </fragment>
 
     <fragment
@@ -923,6 +961,18 @@
         android:label="Policies"
         android:id="@+id/policies"
         tools:layout="@layout/policies">
+        <action
+            android:id="@+id/action_policies_to_policiesDetail"
+            app:destination="@id/policiesDetail"
+            app:launchSingleTop="true"
+            />
+    </fragment>
+
+    <fragment
+        android:name="com.vegasega.hrms.screens.main.policies.PoliciesDetail"
+        android:label="PoliciesDetail"
+        android:id="@+id/policiesDetail"
+        tools:layout="@layout/policies_detail">
     </fragment>
 
     <fragment

@@ -8,14 +8,19 @@ import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import com.google.gson.Gson
 import com.vegasega.hrms.R
 import com.vegasega.hrms.databinding.EmployeesLeaveRequestPostBinding
+import com.vegasega.hrms.datastore.DataStoreKeys.PROFILE_DATA
+import com.vegasega.hrms.datastore.DataStoreUtil.readData
+import com.vegasega.hrms.models.profile.Profile
 import com.vegasega.hrms.networking.email
 import com.vegasega.hrms.networking.getJsonRequestBody
 import com.vegasega.hrms.networking.password
 import com.vegasega.hrms.screens.mainActivity.MainActivity
 import com.vegasega.hrms.screens.mainActivity.MainActivity.Companion.networkFailed
 import com.vegasega.hrms.utils.callNetworkDialog
+import com.vegasega.hrms.utils.showDropDownDialog
 import com.vegasega.hrms.utils.showSnackBar
 import com.vegasega.hrms.utils.singleClick
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,6 +62,22 @@ class EmployeesLeaveRequestPost : Fragment() {
                 }
             })
 
+
+
+            editTextFrom.singleClick {
+                requireActivity().showDropDownDialog(type = 20){
+                    binding.editTextFrom.setText(name)
+                    viewModel.from = title
+                }
+            }
+            editTextTo.singleClick {
+                requireActivity().showDropDownDialog(type = 20){
+                    binding.editTextTo.setText(name)
+                    viewModel.to = title
+                }
+            }
+
+
             btSubmit.singleClick {
                 if (editTextFrom.text.toString().isEmpty()){
                     showSnackBar("Select Leave From Date")
@@ -65,19 +86,26 @@ class EmployeesLeaveRequestPost : Fragment() {
                 }else if (editTextMessage.text.toString().isEmpty()){
                     showSnackBar("Enter Some Message")
                 } else {
-                    val obj: JSONObject = JSONObject().apply {
-                        put(email, editTextMessage.text.toString())
-                        put(password, editTextFrom.text.toString())
-                        put(email, editTextTo.text.toString())
-                        put(password, editTextMessage.text.toString())
-                    }
-                    if(networkFailed) {
-                        viewModel.employeesLeaveRequestPost(obj.getJsonRequestBody()){
-                            view.findNavController().navigateUp()
+                    readData(PROFILE_DATA) { profile ->
+                        if (profile != null) {
+                            val data = Gson().fromJson(profile, Profile::class.java)
+
+                            val obj: JSONObject = JSONObject().apply {
+                                put("employee_id", ""+data.employee.id)
+                                put("from", editTextFrom.text.toString())
+                                put("to", editTextTo.text.toString())
+                                put("message", editTextMessage.text.toString())
+                            }
+                            if(networkFailed) {
+                                viewModel.employeesLeaveRequestPost(obj.getJsonRequestBody()){
+                                    view.findNavController().navigateUp()
+                                }
+                            } else {
+                                requireContext().callNetworkDialog()
+                            }
                         }
-                    } else {
-                        requireContext().callNetworkDialog()
                     }
+
                 }
             }
         }

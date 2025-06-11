@@ -1009,6 +1009,8 @@
     <string name="employeesPerformanceScore">Employees Performance Score</string>
 
     <string name="policies">Policies</string>
+    <string name="policy_detail">Policy Detail</string>
+
     <string name="recruitments">Recruitments</string>
 
     <string name="employeesInformation">Employee Information</string>
@@ -1046,6 +1048,14 @@
 
     <string name="announcementDetail">Announcements Detail</string>
     <string name="createANewEmployeeLeaveRequest">Create A New Employee Leave Request</string>
-    <string name="requests_applied_successfully">Leave Requests Applied Successfully</string>
+    <string name="requests_applied_successfully">Leave Request Applied Successfully</string>
+    <string name="requests_applied_Updated_successfully">Leave Request Updated Successfully</string>
+
+
+
+    <string name="enable_gps">Enable GPS</string>
+    <string name="required_for_this_app">Required for this app</string>
+    <string name="enable_now">Enable Now</string>
+    <string name="location_permission_not_granted">Location Permission not granted</string>
 
 </resources>

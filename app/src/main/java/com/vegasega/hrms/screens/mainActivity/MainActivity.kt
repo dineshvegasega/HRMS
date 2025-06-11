@@ -87,6 +87,8 @@ import com.vegasega.hrms.utils.autoScroll
 import com.vegasega.hrms.utils.callNetworkDialog
 import com.vegasega.hrms.utils.callPermissionDialog
 import com.vegasega.hrms.utils.getDensityName
+import com.vegasega.hrms.utils.getDuration
+import com.vegasega.hrms.utils.getLocalTime
 import com.vegasega.hrms.utils.getSignature
 import com.vegasega.hrms.utils.imageZoom
 import com.vegasega.hrms.utils.ioThread
@@ -94,6 +96,7 @@ import com.vegasega.hrms.utils.loadImage
 import com.vegasega.hrms.utils.mainThread
 import com.vegasega.hrms.utils.showSnackBar
 import com.vegasega.hrms.utils.singleClick
+import com.vegasega.hrms.utils.timeConversion
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import okhttp3.MultipartBody
@@ -101,8 +104,13 @@ import java.io.File
 import java.io.FileOutputStream
 import java.lang.ref.WeakReference
 import java.net.URL
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -530,6 +538,104 @@ class MainActivity : AppCompatActivity() {
 //        val return_val_in_english1 = EnglishNumberToWords.convertToIndianCurrency2(dd)
 //
 //        Log.e("TAG", "return_val_in_english "+return_val_in_english1)
+
+
+
+        var timeIn = getLocalTime("06-06-2025 07:24:04")
+        var timeOut = getLocalTime("06-06-2025 10:27:40")
+        Log.e("TAG", "timeIntimeInbreakInQQtimeIn " + timeIn)
+        Log.e("TAG", "timeIntimeInbreakInQQtimeOut " + timeOut)
+
+//        val datestart: Date = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault()).parse(timeIn)
+//        Log.e("TAG", "calBreakIn" + datestart.toString())
+//
+//        var cal = Calendar.getInstance()
+//        cal.time = Date()
+////        val dateTime: Date = Calendar.getInstance().time
+//
+////        var diff =  dateTime.time - datestart.time
+////                Log.e("TAG", "calBreakIndiff" + diff)
+//
+//
+//        var timeInA = getLocalTime(cal.timeInMillis.getDuration())
+//        Log.e("TAG", "timeInA" + timeInA)
+
+//        val time1 = "06-06-2025 01:52:06"
+//        val time2 = "06-06-2025 07:24:04"
+
+        val format = SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
+        val date1 = format.parse(timeIn)
+        val date2 = format.parse(timeOut)
+        val difference = date2.getTime() - date1.getTime()
+        Log.e("TAG", "calBreakIndiffdifference" + difference)
+
+
+
+
+//        val myFormat = "dd-MM-yyyy HH:mm:ss"
+//        val dateFormat = SimpleDateFormat(myFormat, Locale.getDefault())
+//
+//
+//        val formattedTrips = tripDates.map {
+//            cal.time = it
+//            val month =  calendar.get(Calendar.MONTH+1).toString()
+//            val year = calendar.get(Calendar.YEAR).toString()
+//            val monthAndYear = "$month-$year"
+//            dateFormat.parse(monthAndYear)
+//        }
+
+//        Log.e("TAG", "timeIntimeInbreakInQQ " + timeIn)
+//        val formatter = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
+//        val datestart: Date = formatter.parse(timeIn)
+////
+//        var cal = Calendar.getInstance()
+//        cal.time = Date()
+//
+////        var timeInA = cal.timeInMillis.
+////
+////        Log.e("TAG", "calBreakIn" + cal.toString())
+////
+//        var diff = cal.timeInMillis - datestart.time
+//
+//        Log.e("TAG", "diffdiffdiffdiffAAA " + cal.timeInMillis)
+//        Log.e("TAG", "diffdiffdiffdiffBBB " + datestart.time)
+////
+////
+//                            Log.e("TAG", "diffdiffdiffdiffCCC " + diff)
+////
+////
+//        val millsTotalTime = abs(diff.toDouble()).toLong()
+//                            Log.e("TAG", "diffdiffdiffdiffAAABBB " + millsTotalTime)
+//
+//        val timeLeft: Duration = Duration.ofMillis(millsTotalTime)
+//        val hhmmss = java.lang.String.format(
+//            "%02d:%02d:%02d",
+//            timeLeft.toHours(), timeLeft.toMinutesPart(), timeLeft.toSecondsPart()
+//        )
+//        Log.e("TAG", "hhmmss " + hhmmss)
+//
+//
+//        var ddddddd = stringForTime(millsTotalTime)
+//        Log.e("TAG", "ddddddd " + ddddddd)
+////        var mills = millsTotalTime
+////        val hours = (mills / (1000 * 60 * 60)).toInt()
+////        val mins = (mills / (1000 * 60)).toInt() % 60
+////        val secs = ((mills / 1000).toInt() % 60).toLong()
+////
+////        var dateTime =
+////            "" + (if (hours.toString().length == 1) "0" + hours else hours) + ":" + (if (mins.toString().length == 1) "0" + mins else mins) + ":" + (if (secs.toString().length == 1) "0" + secs else secs)
+////        Log.e("TAG", "differenceTimeQQQQQ " + dateTime)
+//
+//// long minutes = (milliseconds / 1000) / 60;
+//
+//
+        var ss = String.format("%02d:%02d:%02d",
+            TimeUnit.MILLISECONDS.toHours(difference),
+            TimeUnit.MILLISECONDS.toMinutes(difference) -
+                    TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(difference)), // The change is in this line
+            TimeUnit.MILLISECONDS.toSeconds(difference) -
+                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(difference)));
+        Log.e("TAG", "ssQQQQQ " + ss)
 
 
         val bundle = intent?.extras

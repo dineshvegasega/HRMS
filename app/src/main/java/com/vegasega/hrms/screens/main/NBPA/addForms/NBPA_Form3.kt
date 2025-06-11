@@ -277,7 +277,7 @@ class NBPA_Form3 : Fragment() , CallBackListener {
 
 
     var imagePosition = 0
-    @SuppressLint("MissingPermission")
+    @SuppressLint("MissingPermission", "SuspiciousIndentation")
     private var pickMedia =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             lifecycleScope.launch @androidx.annotation.RequiresPermission(allOf = [android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION]) {
