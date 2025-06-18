@@ -27,6 +27,7 @@ import com.vegasega.hrms.databinding.DashboardBinding
 import com.vegasega.hrms.datastore.DataStoreKeys.AUTH
 import com.vegasega.hrms.datastore.DataStoreUtil.readData
 import com.vegasega.hrms.models.attendance.Attendance
+import com.vegasega.hrms.models.dashboard.Announcement
 import com.vegasega.hrms.networking.getJsonRequestBody
 import com.vegasega.hrms.screens.mainActivity.MainActivity
 import com.vegasega.hrms.screens.mainActivity.MainActivity.Companion.networkFailed
@@ -50,6 +51,7 @@ import java.util.Date
 import java.util.Locale
 import java.util.Timer
 import java.util.concurrent.TimeUnit
+import kotlin.collections.List
 import kotlin.collections.forEach
 import kotlin.math.abs
 
@@ -151,8 +153,20 @@ class Dashboard : Fragment() {
                     }
                 })
 
+
+
+                var announcements : ArrayList<Announcement> = ArrayList()
+                    var countOfAn = 0
+                    it.announcements.forEach {
+                        if (countOfAn <= 2){
+                            announcements.add(it)
+                            countOfAn++
+                        }
+                    }
                 viewModel.announcementsAdapter.notifyDataSetChanged()
-                viewModel.announcementsAdapter.submitList(it.announcements)
+                viewModel.announcementsAdapter.submitList(announcements)
+
+
                 if (it.announcements.size > 0) {
                     binding.layoutAnnouncements.visibility = View.VISIBLE
                     textHeaderAnnouncementsTxt.post(object : Runnable {
@@ -206,7 +220,7 @@ class Dashboard : Fragment() {
                         put("sick", 0)
                     }
                     viewModel.attendances(obj.getJsonRequestBody()) {
-                        textCheckIn.setText(getLocalTime(this.created_at))
+                        textCheckIn.setText(this.created_at)
                         callAttendancesList()
                     }
                 }
@@ -221,7 +235,7 @@ class Dashboard : Fragment() {
                         put("sick", 0)
                     }
                     viewModel.attendances(obj.getJsonRequestBody()) {
-                        textCheckIn.setText(getLocalTime(this.created_at))
+                        textCheckIn.setText(this.created_at)
                         callAttendancesList()
                     }
                 }
@@ -285,7 +299,7 @@ class Dashboard : Fragment() {
         readData(AUTH) { token ->
             viewModel.attendancesList() {
                 if (this.attendances.data.size > 0) {
-                    val sdf = SimpleDateFormat("dd-MM-yyyy")
+                    val sdf = SimpleDateFormat("yyyy-MM-dd")
                     val currentDate = sdf.format(Date())
 
                     val dataAttendanceIn: ArrayList<Attendance> = ArrayList()
@@ -296,7 +310,8 @@ class Dashboard : Fragment() {
                     Collections.reverse(allList)
 
                     this.attendances.data.forEach {
-                        if (getLocalTime(it.created_at).contains(currentDate)) {
+//                        Log.e("TAG", "attendancesid " + it.created_at + "   "+currentDate)
+                        if (it.created_at.contains(currentDate)) {
                             Log.e("TAG", "attendancesid " + it.id)
 
                             if (it.attendance_time_id == 1) {
@@ -321,7 +336,7 @@ class Dashboard : Fragment() {
                     if (dataAttendanceIn.size > 0) {
                         var first = dataAttendanceIn.first()
                         Log.e("TAG", "attendancesfirst " + first.toString())
-                        binding.textCheckIn.text = getLocalTime(first.created_at)
+                        binding.textCheckIn.text = first.created_at
                     }
 
 
@@ -330,13 +345,13 @@ class Dashboard : Fragment() {
                         var millsTotal: Long = 0
                         var counter = 0
                         dataAttendanceOut.forEach {
-                            var timeIn = getLocalTime(dataAttendanceIn[counter].created_at)
-                            var timeOut = getLocalTime(dataAttendanceOut[counter].created_at)
+                            var timeIn = dataAttendanceIn[counter].created_at
+                            var timeOut = dataAttendanceOut[counter].created_at
                             Log.e("TAG", "timeIn " + timeIn)
                             Log.e("TAG", "timeOut " + timeOut)
 
                             val formatter =
-                                SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
+                                SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
                             val datestart: Date = formatter.parse(timeIn)
                             val dateend: Date = formatter.parse(timeOut)
 
@@ -348,7 +363,7 @@ class Dashboard : Fragment() {
                         }
 
                         var timeIn =
-                            getLocalTime(dataAttendanceIn[dataAttendanceIn.size - 1].created_at)
+                           dataAttendanceIn[dataAttendanceIn.size - 1].created_at
                         Log.e("TAG", "timeIntimeIn " + timeIn)
                         binding.textNumberTime.text = ""
                         endTime = timeIn
@@ -362,8 +377,8 @@ class Dashboard : Fragment() {
                         var millsTotal: Long = 0
                         var counter = 0
                         dataAttendanceIn.forEach {
-                            var timeIn = getLocalTime(it.created_at)
-                            var timeOut = getLocalTime(dataAttendanceOut[counter].created_at)
+                            var timeIn = it.created_at
+                            var timeOut = dataAttendanceOut[counter].created_at
                             Log.e("TAG", "timeIn " + timeIn)
                             Log.e("TAG", "timeOut " + timeOut)
 
@@ -374,7 +389,7 @@ class Dashboard : Fragment() {
 //                            val millse: Long = datestart.getTime() - dateend.getTime()
 
 
-                            val format = SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
+                            val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
                             val date1 = format.parse(timeIn)
                             val date2 = format.parse(timeOut)
                             val difference = date2.getTime() - date1.getTime()
@@ -415,7 +430,7 @@ class Dashboard : Fragment() {
                         if (dataAttendanceIn.size > 0) {
                             var last = dataAttendanceOut.last()
                             Log.e("TAG", "attendanceslast " + last.toString())
-                            binding.textCheckOut.text = getLocalTime(last.created_at)
+                            binding.textCheckOut.text =last.created_at
                             type = 2
                         }
                         stop()
@@ -438,16 +453,16 @@ class Dashboard : Fragment() {
                             var millsTotal: Long = 0
                             var counter = 0
                             breakIn.forEach {
-                                var timeIn = getLocalTime(breakIn[counter].created_at)
+                                var timeIn = breakIn[counter].created_at
 
                                 if (breakOut.size != 0) {
                                     try {
-                                        var timeOut = getLocalTime(breakOut[counter].created_at)
+                                        var timeOut = breakOut[counter].created_at
 //                                        Log.e("TAG", "timeIn " + timeIn)
 //                                        Log.e("TAG", "timeOut " + timeOut)
 
                                         val formatter = SimpleDateFormat(
-                                            "dd-MM-yyyy HH:mm:ss",
+                                            "yyyy-MM-dd HH:mm:ss",
                                             Locale.getDefault()
                                         )
                                         val datestart: Date = formatter.parse(timeIn)
@@ -467,7 +482,7 @@ class Dashboard : Fragment() {
                             prevBreakInTimeMillsTotal = millsTotal
                             isBreakType = 1
 
-                            var timeIn = getLocalTime(breakIn[breakIn.size - 1].created_at)
+                            var timeIn = breakIn[breakIn.size - 1].created_at
 
                             breakInTime = timeIn
 ////                            Log.e("TAG", "timeIntimeIn " + timeIn)
@@ -499,13 +514,13 @@ class Dashboard : Fragment() {
                             var millsTotal: Long = 0
                             var counter = 0
                             breakIn.forEach {
-                                var timeIn = getLocalTime(it.created_at)
-                                var timeOut = getLocalTime(breakOut[counter].created_at)
+                                var timeIn = it.created_at
+                                var timeOut = breakOut[counter].created_at
 //                                Log.e("TAG", "timeIn " + timeIn)
 //                                Log.e("TAG", "timeOut " + timeOut)
 
                                 val formatter =
-                                    SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
+                                    SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
                                 val datestart: Date = formatter.parse(timeIn)
                                 val dateend: Date = formatter.parse(timeOut)
 
@@ -547,7 +562,7 @@ class Dashboard : Fragment() {
 
 
     val task = {
-//        updateTimer(startTime, endTime, type)
+        updateTimer(startTime, endTime, type)
         start()
     }
 
@@ -591,7 +606,7 @@ class Dashboard : Fragment() {
 
             try {
                 if (type == 1) {
-                    val formatter = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
+                    val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
                     val datestart: Date = formatter.parse(endTime)
 
                     var cal = Calendar.getInstance()
@@ -648,16 +663,16 @@ class Dashboard : Fragment() {
 
                         var cal = Calendar.getInstance()
                         cal.time = Date()
-                        var timeInA = getLocalTime(cal.timeInMillis.getDuration())
+                        var timeInA = cal.timeInMillis
                         Log.e("TAG", "timeInA " + timeInA)
 
 //        val time1 = "06-06-2025 01:52:06"
 //        val time2 = "06-06-2025 03:15:00"
 
-                        val format = SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
+                        val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
                         val date1 = format.parse(breakInTime)
-                        val date2 = format.parse(timeInA)
-                        val difference = date2.getTime() - date1.getTime()
+//                        val date2 = format.parse(timeInA)
+                        val difference =timeInA - date1.getTime()
 
 
                         val millsTotalTime = abs(prevBreakInTimeMillsTotal.toDouble()).toLong()
@@ -881,14 +896,13 @@ class Dashboard : Fragment() {
                         put("attendance_time_id", 1)
                         put("sick", 0)
                     }
-//                    viewModel.attendances(obj.getJsonRequestBody()) {
-//                        binding.textCheckIn.setText(getLocalTime(this.created_at))
-//                        callAttendancesList()
-//                    }
+                    viewModel.attendances(obj.getJsonRequestBody()) {
+                        binding.textCheckIn.setText(this.created_at)
+                        callAttendancesList()
+                    }
                 }
             }
         }
-
     }
 
     @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
@@ -907,10 +921,10 @@ class Dashboard : Fragment() {
                         put("attendance_time_id", 2)
                         put("sick", 0)
                     }
-//                    viewModel.attendances(obj.getJsonRequestBody()) {
-//                        binding.textCheckOut.setText(getLocalTime(this.created_at))
-//                        callAttendancesList()
-//                    }
+                    viewModel.attendances(obj.getJsonRequestBody()) {
+                        binding.textCheckOut.setText(this.created_at)
+                        callAttendancesList()
+                    }
                 }
             }
         }

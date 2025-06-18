@@ -2074,17 +2074,27 @@ fun String.getMonthFromHindi() : String{
     }
 }
 
-fun getLocalTime(dateTime: String?): String {
+fun String.getLocalTime(dateTimeIn: String?, dateTimeOut: String?): String {
     return try {
-        val timeServerFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss", Locale.ENGLISH)
-        val utcDateTime = LocalDateTime.parse(dateTime, timeServerFormatter).atZone(ZoneId.of("UTC"))
+        val timeServerFormatter = DateTimeFormatter.ofPattern(dateTimeIn, Locale.ENGLISH)
+        val utcDateTime = LocalDateTime.parse(this, timeServerFormatter).atZone(ZoneId.of("UTC"))
         val localDateTime = utcDateTime.withZoneSameInstant(ZoneId.systemDefault())
-        val localFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss", Locale.ENGLISH)
+        val localFormatter = DateTimeFormatter.ofPattern(dateTimeOut, Locale.ENGLISH)
         localDateTime.format(localFormatter)
     } catch (e: Exception) {
         e.printStackTrace()
         "Not Known"
     }
+}
+
+
+fun convertToUTC(dateTimeString: String, inputFormat: String, outputFormat: String = "dd MMM, yyyy"): String {
+    val formatter = DateTimeFormatter.ofPattern(inputFormat)
+    val localDateTime = LocalDateTime.parse(dateTimeString, formatter)
+    val systemZoneDateTime = localDateTime.atZone(ZoneId.systemDefault())
+    val utcDateTime = systemZoneDateTime.withZoneSameInstant(ZoneId.of("UTC"))
+    val outputFormatter = DateTimeFormatter.ofPattern(outputFormat)
+    return utcDateTime.format(outputFormatter)
 }
 
 fun timeConversion(s: String): String {

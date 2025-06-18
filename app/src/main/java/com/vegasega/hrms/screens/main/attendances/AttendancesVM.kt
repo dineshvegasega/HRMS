@@ -114,11 +114,10 @@ class AttendancesVM @Inject constructor(private val repository: Repository): Vie
                 else "" ?: ""
                 textType.setText("Type: "+type)
                 textMessage.setText("Message: "+model?.message ?: "")
-//                textDate.setText("Date: "+model?.created_at ?: "")
+                textDate.setText("Date: "+model?.created_at ?: "")
 
-                var dd = getLocalTime(model?.created_at)
-
-                textDate.setText("Time: "+dd)
+//                var dd = getLocalTime(model?.created_at)
+//                textDate.setText("Time: "+dd)
             }
         }
     }

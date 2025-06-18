@@ -71,7 +71,7 @@ class ForgetPassword : Fragment() , OtpTimer.SendOtpTimerData {
             }
 
             editTextVeryfyOtp.isEnabled = false
-            btSignIn.isEnabled = false
+            btSignIn.isEnabled = true
             textBack.singleClick {
                 view.findNavController().navigateUp()
             }
@@ -80,33 +80,33 @@ class ForgetPassword : Fragment() , OtpTimer.SendOtpTimerData {
             var key = "" + arguments?.getString("from")
             if (key == "login"){
                 textHeaderadfdsfTxt31.text = getString(R.string.set_password)
-                groupMobileNumberVisibility.visibility = View.GONE
-                groupOTPVisibility.visibility = View.GONE
+                editTextOtp.visibility = View.INVISIBLE
+                editTextVeryfyOtp.visibility = View.INVISIBLE
+                layoutCreatePassword.visibility = View.INVISIBLE
+                layoutCreatePasswordConfirm.visibility = View.INVISIBLE
             }else{
                 textHeaderadfdsfTxt31.text = getString(R.string.ForgotPassword)
-                groupMobileNumberVisibility.visibility = View.VISIBLE
-                groupOTPVisibility.visibility = View.VISIBLE
             }
 
 
 
-            viewModel.isSend.observe(viewLifecycleOwner, Observer {
-                editTextSendOtp.setText(if (it == true) {getString(R.string.resendOtp)} else {getString(R.string.send_otp)})
-                if (it == true){
-                    OtpTimer.startTimer()
-                    editTextVeryfyOtp.setEnabled(true)
-                    editTextVeryfyOtp.setBackgroundTintList(
-                        ColorStateList.valueOf(
-                            ResourcesCompat.getColor(
-                                getResources(), R.color._E79D46, null)))
-                }else{
-                    editTextVeryfyOtp.setEnabled(false)
-                    editTextVeryfyOtp.setBackgroundTintList(
-                        ColorStateList.valueOf(
-                            ResourcesCompat.getColor(
-                                getResources(), R.color._999999, null)))
-                }
-            })
+//            viewModel.isSend.observe(viewLifecycleOwner, Observer {
+//                editTextSendOtp.setText(if (it == true) {getString(R.string.resendOtp)} else {getString(R.string.send_otp)})
+//                if (it == true){
+//                    OtpTimer.startTimer()
+//                    editTextVeryfyOtp.setEnabled(true)
+//                    editTextVeryfyOtp.setBackgroundTintList(
+//                        ColorStateList.valueOf(
+//                            ResourcesCompat.getColor(
+//                                getResources(), R.color._E79D46, null)))
+//                }else{
+//                    editTextVeryfyOtp.setEnabled(false)
+//                    editTextVeryfyOtp.setBackgroundTintList(
+//                        ColorStateList.valueOf(
+//                            ResourcesCompat.getColor(
+//                                getResources(), R.color._999999, null)))
+//                }
+//            })
 
             var counter = 0
             var start: Int
@@ -155,7 +155,7 @@ class ForgetPassword : Fragment() , OtpTimer.SendOtpTimerData {
 
             viewModel.isSend.value = false
             viewModel.isSend.observe(viewLifecycleOwner, Observer {
-                editTextSendOtp.setText(if (it == true) {getString(R.string.resendOtp)} else {getString(R.string.send_otp)})
+//                editTextSendOtp.setText(if (it == true) {getString(R.string.resendOtp)} else {getString(R.string.send_otp)})
                 if (it == true){
                     editTextVeryfyOtp.setEnabled(true)
                     editTextVeryfyOtp.setBackgroundTintList(
@@ -178,12 +178,12 @@ class ForgetPassword : Fragment() , OtpTimer.SendOtpTimerData {
                     tvTime.visibility = View.GONE
 //                    OtpTimer.sendOtpTimerData = null
                     OtpTimer.stopTimer()
-                    editTextSendOtp.setEnabled(false)
+//                    editTextSendOtp.setEnabled(false)
                     editTextVeryfyOtp.setEnabled(false)
-                    editTextSendOtp.setBackgroundTintList(
-                        ColorStateList.valueOf(
-                            ResourcesCompat.getColor(
-                                getResources(), R.color._999999, null)))
+//                    editTextSendOtp.setBackgroundTintList(
+//                        ColorStateList.valueOf(
+//                            ResourcesCompat.getColor(
+//                                getResources(), R.color._999999, null)))
                     editTextVeryfyOtp.setBackgroundTintList(
                         ColorStateList.valueOf(
                             ResourcesCompat.getColor(
@@ -198,38 +198,38 @@ class ForgetPassword : Fragment() , OtpTimer.SendOtpTimerData {
             })
 
 
-            editTextSendOtp.singleClick {
-                if (editTextMobileNumber.text.toString().isEmpty() || editTextMobileNumber.text.toString().length != 10){
-                    showSnackBar(getString(R.string.enterMobileNumber))
-                }else{
-                    val obj: JSONObject = JSONObject().apply {
-                        put(mobile_no, binding.editTextMobileNumber.text.toString())
-                        put(slug, forgot)
-                        put(user_type, USER_TYPE)
-                    }
-                    if(networkFailed) {
-                        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
-                        requireContext().registerReceiver(
-                            VerifyBroadcastReceiver(),
-                            intentFilter,
-                            Context.RECEIVER_NOT_EXPORTED
-                        )
-                        val client = SmsRetriever.getClient(requireContext())
-                        client.startSmsUserConsent(null)
-                        val task: Task<Void> = client.startSmsRetriever()
-                        task.addOnSuccessListener {
-                            VerifyBroadcastReceiver.initSMSListener(object : SMSListener {
-                                override fun onSuccess(intent: Intent?) {
-                                    someActivityResultLauncher.launch(intent)
-                                }
-                            })
-                        }
-                        viewModel.sendOTP(view = requireView(), obj)
-                    } else {
-                        requireContext().callNetworkDialog()
-                    }
-                }
-            }
+//            editTextSendOtp.singleClick {
+//                if (editTextMobileNumber.text.toString().isEmpty() || editTextMobileNumber.text.toString().length != 10){
+//                    showSnackBar(getString(R.string.enterMobileNumber))
+//                }else{
+//                    val obj: JSONObject = JSONObject().apply {
+//                        put(mobile_no, binding.editTextMobileNumber.text.toString())
+//                        put(slug, forgot)
+//                        put(user_type, USER_TYPE)
+//                    }
+//                    if(networkFailed) {
+//                        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
+//                        requireContext().registerReceiver(
+//                            VerifyBroadcastReceiver(),
+//                            intentFilter,
+//                            Context.RECEIVER_NOT_EXPORTED
+//                        )
+//                        val client = SmsRetriever.getClient(requireContext())
+//                        client.startSmsUserConsent(null)
+//                        val task: Task<Void> = client.startSmsRetriever()
+//                        task.addOnSuccessListener {
+//                            VerifyBroadcastReceiver.initSMSListener(object : SMSListener {
+//                                override fun onSuccess(intent: Intent?) {
+//                                    someActivityResultLauncher.launch(intent)
+//                                }
+//                            })
+//                        }
+//                        viewModel.sendOTP(view = requireView(), obj)
+//                    } else {
+//                        requireContext().callNetworkDialog()
+//                    }
+//                }
+//            }
 
 
             editTextVeryfyOtp.singleClick {
@@ -261,11 +261,11 @@ class ForgetPassword : Fragment() , OtpTimer.SendOtpTimerData {
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     if (isTimer.isEmpty()) {
-                        editTextSendOtp.setEnabled(true)
-                        editTextSendOtp.setBackgroundTintList(
-                            ColorStateList.valueOf(
-                                ResourcesCompat.getColor(
-                                    getResources(), R.color._E79D46, null)))
+//                        editTextSendOtp.setEnabled(true)
+//                        editTextSendOtp.setBackgroundTintList(
+//                            ColorStateList.valueOf(
+//                                ResourcesCompat.getColor(
+//                                    getResources(), R.color._E79D46, null)))
                         viewModel.isOtpVerified = false
                         editTextMobileNumber.requestFocus()
                     }
@@ -281,11 +281,11 @@ class ForgetPassword : Fragment() , OtpTimer.SendOtpTimerData {
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     if (isTimer.isEmpty()) {
-                        editTextSendOtp.setEnabled(true)
-                        editTextSendOtp.setBackgroundTintList(
-                            ColorStateList.valueOf(
-                                ResourcesCompat.getColor(
-                                    getResources(), R.color._E79D46, null)))
+//                        editTextSendOtp.setEnabled(true)
+//                        editTextSendOtp.setBackgroundTintList(
+//                            ColorStateList.valueOf(
+//                                ResourcesCompat.getColor(
+//                                    getResources(), R.color._E79D46, null)))
                         viewModel.isOtpVerified = false
                         editTextOtp.requestFocus()
                     }
@@ -294,25 +294,25 @@ class ForgetPassword : Fragment() , OtpTimer.SendOtpTimerData {
 
 
             btSignIn.singleClick {
-                if (editTextMobileNumber.text.toString().isEmpty() || editTextMobileNumber.text.toString().length != 10){
-                    showSnackBar(getString(R.string.enterMobileNumber))
-                } else if (editTextPassword.text.toString().isEmpty()){
-                    showSnackBar(getString(R.string.YourNewPassword))
-                } else if(editTextPassword.text.toString().length >= 0 && editTextPassword.text.toString().length < 8){
-                    showSnackBar(getString(R.string.InvalidPassword))
-                } else if(!isValidPassword(editTextPassword.text.toString().trim())){
-                    showSnackBar(getString(R.string.InvalidPassword))
-                } else{
-                    val obj: JSONObject = JSONObject().apply {
-                        put(mobile_number, editTextMobileNumber.text.toString())
-                        put(password, editTextPassword.text.toString())
-                    }
-                    if(networkFailed) {
-                        viewModel.passwordUpdate(view = requireView(), obj)
-                    } else {
-                        requireContext().callNetworkDialog()
-                    }
-                }
+//                if (editTextMobileNumber.text.toString().isEmpty() || editTextMobileNumber.text.toString().length != 10){
+//                    showSnackBar(getString(R.string.enterMobileNumber))
+//                } else if (editTextPassword.text.toString().isEmpty()){
+//                    showSnackBar(getString(R.string.YourNewPassword))
+//                } else if(editTextPassword.text.toString().length >= 0 && editTextPassword.text.toString().length < 8){
+//                    showSnackBar(getString(R.string.InvalidPassword))
+//                } else if(!isValidPassword(editTextPassword.text.toString().trim())){
+//                    showSnackBar(getString(R.string.InvalidPassword))
+//                } else{
+//                    val obj: JSONObject = JSONObject().apply {
+//                        put(mobile_number, editTextMobileNumber.text.toString())
+//                        put(password, editTextPassword.text.toString())
+//                    }
+//                    if(networkFailed) {
+//                        viewModel.passwordUpdate(view = requireView(), obj)
+//                    } else {
+//                        requireContext().callNetworkDialog()
+//                    }
+//                }
             }
 
         }
@@ -329,20 +329,20 @@ class ForgetPassword : Fragment() , OtpTimer.SendOtpTimerData {
             tvTime.visibility = if (string.isNotEmpty()) View.VISIBLE else View.GONE
             tvTime.text = getString(R.string.the_verify_code_will_expire_in_00_59, string)
 
-            if(string.isEmpty()){
-                editTextSendOtp.setText(getString(R.string.resendOtp))
-                editTextSendOtp.setEnabled(true)
-                editTextSendOtp.setBackgroundTintList(
-                    ColorStateList.valueOf(
-                        ResourcesCompat.getColor(
-                            getResources(), R.color._E79D46, null)))
-            } else {
-                editTextSendOtp.setEnabled(false)
-                editTextSendOtp.setBackgroundTintList(
-                    ColorStateList.valueOf(
-                        ResourcesCompat.getColor(
-                            getResources(), R.color._999999, null)))
-            }
+//            if(string.isEmpty()){editTextSendOtp.setText(getString(R.string.resendOtp))
+//                editTextSendOtp.setEnabled(true)
+//                editTextSendOtp.setBackgroundTintList(
+//                    ColorStateList.valueOf(
+//                        ResourcesCompat.getColor(
+//                            getResources(), R.color._E79D46, null)))
+//
+//            } else {
+//                editTextSendOtp.setEnabled(false)
+//                editTextSendOtp.setBackgroundTintList(
+//                    ColorStateList.valueOf(
+//                        ResourcesCompat.getColor(
+//                            getResources(), R.color._999999, null)))
+//            }
         }
     }
 

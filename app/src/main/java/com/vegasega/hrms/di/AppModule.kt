@@ -28,6 +28,7 @@ class AppModule {
     @Singleton
     fun cache(@ApplicationContext context: Context): Cache =
         Cache(context.cacheDir, (5 * 1024 * 1024).toLong())
+
     @Provides
     @Singleton
     fun provideOkHttpClient(

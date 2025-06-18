@@ -86,6 +86,8 @@ import com.vegasega.hrms.utils.LocaleHelper
 import com.vegasega.hrms.utils.autoScroll
 import com.vegasega.hrms.utils.callNetworkDialog
 import com.vegasega.hrms.utils.callPermissionDialog
+import com.vegasega.hrms.utils.changeDateFormat
+import com.vegasega.hrms.utils.convertToUTC
 import com.vegasega.hrms.utils.getDensityName
 import com.vegasega.hrms.utils.getDuration
 import com.vegasega.hrms.utils.getLocalTime
@@ -541,10 +543,10 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        var timeIn = getLocalTime("06-06-2025 07:24:04")
-        var timeOut = getLocalTime("06-06-2025 10:27:40")
-        Log.e("TAG", "timeIntimeInbreakInQQtimeIn " + timeIn)
-        Log.e("TAG", "timeIntimeInbreakInQQtimeOut " + timeOut)
+//        var timeIn = getLocalTime("06-06-2025 07:24:04")
+//        var timeOut = getLocalTime("06-06-2025 10:27:40")
+//        Log.e("TAG", "timeIntimeInbreakInQQtimeIn " + timeIn)
+//        Log.e("TAG", "timeIntimeInbreakInQQtimeOut " + timeOut)
 
 //        val datestart: Date = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault()).parse(timeIn)
 //        Log.e("TAG", "calBreakIn" + datestart.toString())
@@ -563,11 +565,11 @@ class MainActivity : AppCompatActivity() {
 //        val time1 = "06-06-2025 01:52:06"
 //        val time2 = "06-06-2025 07:24:04"
 
-        val format = SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
-        val date1 = format.parse(timeIn)
-        val date2 = format.parse(timeOut)
-        val difference = date2.getTime() - date1.getTime()
-        Log.e("TAG", "calBreakIndiffdifference" + difference)
+//        val format = SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
+//        val date1 = format.parse(timeIn)
+//        val date2 = format.parse(timeOut)
+//        val difference = date2.getTime() - date1.getTime()
+//        Log.e("TAG", "calBreakIndiffdifference" + difference)
 
 
 
@@ -629,13 +631,33 @@ class MainActivity : AppCompatActivity() {
 //// long minutes = (milliseconds / 1000) / 60;
 //
 //
-        var ss = String.format("%02d:%02d:%02d",
-            TimeUnit.MILLISECONDS.toHours(difference),
-            TimeUnit.MILLISECONDS.toMinutes(difference) -
-                    TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(difference)), // The change is in this line
-            TimeUnit.MILLISECONDS.toSeconds(difference) -
-                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(difference)));
-        Log.e("TAG", "ssQQQQQ " + ss)
+
+//        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+//        val date =
+//            dateFormat.parse("2025-06-15T18:30:00")
+//        val formatter =
+//            SimpleDateFormat("yyyy-MM-dd") //If you need time just put specific format for time like ‘HH:mm:ss’
+//        val dateStr = formatter.format(date)
+//        Log.e("TAG", "sssAA " + dateStr)
+//        val dateTimeString = "2025-06-15T18:30:00"
+//        val inputFormat = "yyyy-MM-dd'T'HH:mm:ss"
+//        val utcDateTimeString = convertToUTC(dateTimeString, inputFormat)
+//        println("Original Date Time: $dateTimeString")
+//        println("UTC Date Time: $utcDateTimeString")
+
+        var sss = "2025-06-15T18:30:00".getLocalTime("yyyy-MM-dd'T'HH:mm:ss", "dd MMM, yyyy")
+
+//            var sss ="2025-06-15T18:30:00.000000Z".changeDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", "dd MMM, yyyy").toString()
+        Log.e("TAG", "sssAA " + sss)
+
+
+//        var ss = String.format("%02d:%02d:%02d",
+//            TimeUnit.MILLISECONDS.toHours(difference),
+//            TimeUnit.MILLISECONDS.toMinutes(difference) -
+//                    TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(difference)), // The change is in this line
+//            TimeUnit.MILLISECONDS.toSeconds(difference) -
+//                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(difference)));
+//        Log.e("TAG", "ssQQQQQ " + ss)
 
 
         val bundle = intent?.extras

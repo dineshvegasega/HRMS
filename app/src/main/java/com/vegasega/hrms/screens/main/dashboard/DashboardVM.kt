@@ -63,6 +63,7 @@ import com.vegasega.hrms.screens.main.schemes.liveSchemes.LiveSchemes
 import com.vegasega.hrms.screens.main.training.liveTraining.LiveTraining
 import com.vegasega.hrms.screens.mainActivity.MainActivity
 import com.vegasega.hrms.screens.mainActivity.MainActivityVM.Companion.isProductLoad
+import com.vegasega.hrms.utils.getLocalTime
 import com.vegasega.hrms.utils.showSnackBar
 import com.vegasega.hrms.utils.singleClick
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -165,7 +166,7 @@ class DashboardVM @Inject constructor(private val repository: Repository) : View
         ) {
             binding.apply {
                 textTitle.text = ""+dataClass.name+" — "
-                textTitleDate.text = dataClass.date_of_birth
+                textTitleDate.text = ""+dataClass.date_of_birth?.replace(".000000Z", "")?.getLocalTime("yyyy-MM-dd'T'HH:mm:ss", "dd MMM, yyyy").toString()
             }
         }
     }
@@ -186,7 +187,7 @@ class DashboardVM @Inject constructor(private val repository: Repository) : View
         ) {
             binding.apply {
                 textTitle.text = ""+dataClass.name+" — "
-                textTitleDate.text = dataClass.marriage_anniversary
+                textTitleDate.text = ""+dataClass.marriage_anniversary?.replace(".000000Z", "")?.getLocalTime("yyyy-MM-dd'T'HH:mm:ss", "dd MMM, yyyy").toString()
             }
         }
     }

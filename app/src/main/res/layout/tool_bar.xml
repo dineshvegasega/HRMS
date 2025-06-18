@@ -40,7 +40,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivMenu"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:srcCompat="@drawable/logo_flat_icon"
+            app:srcCompat="@drawable/round_logo"
             />
 
 

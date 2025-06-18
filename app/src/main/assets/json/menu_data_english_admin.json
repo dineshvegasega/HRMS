@@ -7,6 +7,12 @@
       ]
     },
     {
+      "name": "Profile",
+      "headlines": [
+
+      ]
+    },
+    {
       "name": "Data",
       "headlines": [
         {
@@ -72,12 +78,7 @@
       "headlines": [
 
       ]
-    },
-    {
-      "name": "Profile",
-      "headlines": [
-
-      ]
     }
+
   ]
 }

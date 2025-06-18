@@ -48,6 +48,7 @@ import com.vegasega.hrms.screens.main.data.positions.Positions
 import com.vegasega.hrms.screens.main.employeesLeaveRequest.EmployeesLeaveRequest
 import com.vegasega.hrms.screens.main.employeesPerformanceScore.EmployeesPerformanceScore
 import com.vegasega.hrms.screens.main.policies.Policies
+import com.vegasega.hrms.screens.main.profiles.EmployeeConfiguration
 import com.vegasega.hrms.screens.main.profiles.Profiles
 import com.vegasega.hrms.screens.main.recruitments.Recruitments
 import com.vegasega.hrms.screens.main.scoreCategories.ScoreCategories
@@ -194,58 +195,51 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
                                         }
 
                                         1 -> {
-                                            if (fragmentInFrame !is EmployeesPerformanceScore) {
+                                            if (fragmentInFrame !is Profiles) {
                                                 isProductLoad = true
-                                                navHostFragment?.navController?.navigate(R.id.employeesPerformanceScore)
+                                                navHostFragment?.navController?.navigate(R.id.profiles )
                                             }
                                         }
 
                                         2 -> {
-                                            if (fragmentInFrame !is EmployeesLeaveRequest) {
-                                                isProductLoad = true
-                                                navHostFragment?.navController?.navigate(R.id.employeesLeaveRequest)
-                                            }
-                                        }
-
-                                        3 -> {
                                             if (fragmentInFrame !is Attendances) {
                                                 isProductLoad = true
                                                 navHostFragment?.navController?.navigate(R.id.attendances)
                                             }
                                         }
 
+                                        3 -> {
+                                            if (fragmentInFrame !is EmployeesLeaveRequest) {
+                                                isProductLoad = true
+                                                navHostFragment?.navController?.navigate(R.id.employeesLeaveRequest )
+                                            }
+                                        }
+
                                         4 -> {
+                                            if (fragmentInFrame !is EmployeesPerformanceScore) {
+                                                isProductLoad = true
+                                                navHostFragment?.navController?.navigate(R.id.employeesPerformanceScore)
+                                            }
+                                        }
+
+                                        5 -> {
                                             if (fragmentInFrame !is Announcements) {
                                                 isProductLoad = true
                                                 navHostFragment?.navController?.navigate(R.id.announcements)
                                             }
                                         }
 
-//                                        6 -> {
-//                                            if (fragmentInFrame !is Recruitments) {
-//                                                isProductLoad = true
-//                                                navHostFragment?.navController?.navigate(R.id.recruitments)
-//                                            }
-//                                        }
-//
-//                                        7 -> {
-//                                            if (fragmentInFrame !is ScoreCategories) {
-//                                                isProductLoad = true
-//                                                navHostFragment?.navController?.navigate(R.id.scoreCategories)
-//                                            }
-//                                        }
-
-                                        5 -> {
+                                        6 -> {
                                             if (fragmentInFrame !is Policies) {
                                                 isProductLoad = true
                                                 navHostFragment?.navController?.navigate(R.id.policies)
                                             }
                                         }
 
-                                        6 -> {
+                                        7-> {
                                             if (fragmentInFrame !is Profiles) {
                                                 isProductLoad = true
-                                                navHostFragment?.navController?.navigate(R.id.profiles)
+                                                navHostFragment?.navController?.navigate(R.id.policies)
                                             }
                                         }
                                     }
@@ -261,57 +255,64 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
                                                 )
                                             }
                                         }
+                                        1 -> {
+                                            if (fragmentInFrame !is Profiles) {
+                                                navHostFragment?.navController?.navigate(
+                                                    R.id.profiles
+                                                )
+                                            }
+                                        }
 
-                                        2 -> {
+                                        3 -> {
                                             if (fragmentInFrame !is EmployeesPerformanceScore) {
                                                 isProductLoad = true
                                                 navHostFragment?.navController?.navigate(R.id.employeesPerformanceScore)
                                             }
                                         }
 
-                                        3 -> {
+                                        4 -> {
                                             if (fragmentInFrame !is EmployeesLeaveRequest) {
                                                 isProductLoad = true
                                                 navHostFragment?.navController?.navigate(R.id.employeesLeaveRequest)
                                             }
                                         }
 
-                                        4 -> {
+                                        5 -> {
                                             if (fragmentInFrame !is Attendances) {
                                                 isProductLoad = true
                                                 navHostFragment?.navController?.navigate(R.id.attendances)
                                             }
                                         }
 
-                                        5 -> {
+                                        6 -> {
                                             if (fragmentInFrame !is Announcements) {
                                                 isProductLoad = true
                                                 navHostFragment?.navController?.navigate(R.id.announcements)
                                             }
                                         }
 
-                                        6 -> {
+                                        7 -> {
                                             if (fragmentInFrame !is Recruitments) {
                                                 isProductLoad = true
                                                 navHostFragment?.navController?.navigate(R.id.recruitments)
                                             }
                                         }
 
-                                        7 -> {
+                                        8 -> {
                                             if (fragmentInFrame !is ScoreCategories) {
                                                 isProductLoad = true
                                                 navHostFragment?.navController?.navigate(R.id.scoreCategories)
                                             }
                                         }
 
-                                        9 -> {
+                                        10 -> {
                                             if (fragmentInFrame !is Policies) {
                                                 isProductLoad = true
                                                 navHostFragment?.navController?.navigate(R.id.policies)
                                             }
                                         }
 
-                                        10 -> {
+                                        11 -> {
                                             if (fragmentInFrame !is Profiles) {
                                                 isProductLoad = true
                                                 navHostFragment?.navController?.navigate(R.id.profiles)
@@ -470,38 +471,21 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
                                     when (parentPosition) {
                                         1 -> when (position) {
                                             0 -> {
-                                                if (fragmentInFrame !is Employees) {
-                                                    navHostFragment?.navController?.navigate(R.id.employees)
+                                                if (fragmentInFrame !is Profiles) {
+                                                    navHostFragment?.navController?.navigate(R.id.profiles)
                                                 }
+                                                Log.e("TAG", "AAA")
                                             }
 
                                             1 -> {
-                                                if (fragmentInFrame !is Departments) {
-                                                    navHostFragment?.navController?.navigate(R.id.departments)
-                                                }
-                                            }
-
-                                            2 -> {
-                                                if (fragmentInFrame !is Positions) {
-                                                    navHostFragment?.navController?.navigate(R.id.positions)
+                                                Log.e("TAG", "BBB")
+                                                if (fragmentInFrame !is EmployeeConfiguration) {
+                                                    navHostFragment?.navController?.navigate(R.id.employeeConfiguration)
                                                 }
                                             }
                                         }
 
-                                        8 -> when (position) {
-                                            0 -> {
-                                                if (fragmentInFrame !is Users) {
-                                                    navHostFragment?.navController?.navigate(R.id.users)
-                                                }
-                                            }
 
-                                            1 -> {
-                                                if (fragmentInFrame !is Roles) {
-                                                    navHostFragment?.navController?.navigate(R.id.roles)
-                                                }
-                                            }
-
-                                        }
 
 
 //                                    5 -> when (position) {

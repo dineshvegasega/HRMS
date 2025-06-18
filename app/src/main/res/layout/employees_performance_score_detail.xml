@@ -178,7 +178,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 tools:ignore="MissingConstraints"
                 app:fontFamily="@font/roboto_medium"
-                android:text="Title"
+                android:text="Name"
                 android:visibility="visible"
                 />
 
@@ -187,7 +187,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_40sdp"
                 style="@style/PrimaryEditText"
-                android:hint="Title"
+                android:hint="Name"
                 android:text=""
                 app:layout_constraintTop_toBottomOf="@+id/textTitlext"
                 app:layout_constraintEnd_toEndOf="parent"

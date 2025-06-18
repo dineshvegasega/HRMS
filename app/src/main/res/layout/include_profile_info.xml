@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
         app:fontFamily="@font/roboto_medium"
-        android:text="@string/employeesInformation"
+        android:text="Personal Details"
         android:visibility="visible"
         android:layout_marginTop="@dimen/_15sdp"
         />
@@ -132,7 +132,7 @@
         app:fontFamily="@font/roboto_medium"
         android:text="@string/departmentCol"
         android:visibility="visible"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         />
 
     <androidx.appcompat.widget.AppCompatEditText
@@ -145,6 +145,8 @@
         android:text=""
         app:layout_constraintTop_toBottomOf="@+id/textDepartmentTxt"
         android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="0dp"
         />
 
 
@@ -177,6 +179,8 @@
         android:text=""
         app:layout_constraintTop_toBottomOf="@+id/textPositionTxt"
         android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="0dp"
         />
 
 
@@ -206,6 +210,8 @@
         android:text=""
         app:layout_constraintTop_toBottomOf="@+id/textGenderTxt"
         android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="0dp"
         />
 
 
@@ -220,7 +226,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
         app:fontFamily="@font/roboto_medium"
-        android:text="@string/dateOfBirthCol"
+        android:text="Date of Birth"
         android:visibility="visible"
         android:layout_marginTop="@dimen/_10sdp"
         />
@@ -230,11 +236,44 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
         style="@style/PrimaryEditText"
-        android:hint="@string/dateOfBirthCol"
+        android:hint="Date of Birth"
         android:paddingHorizontal="@dimen/_10sdp"
         android:text=""
         app:layout_constraintTop_toBottomOf="@+id/textDateOfBirthTxt"
         android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="0dp"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textDateOfJoiningTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/_2C2C2C"
+        android:textSize="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/editDateOfBirth"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:fontFamily="@font/roboto_medium"
+        android:text="Date of Joining"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editDateOfJoining"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        style="@style/PrimaryEditText"
+        android:hint="Date of joining"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@+id/textDateOfJoiningTxt"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="0dp"
         />
 
 
@@ -246,7 +285,7 @@
         android:textColor="@color/_2C2C2C"
         android:textSize="@dimen/_12sdp"
         android:layout_marginHorizontal="@dimen/_10sdp"
-        app:layout_constraintTop_toBottomOf="@+id/editDateOfBirth"
+        app:layout_constraintTop_toBottomOf="@+id/editDateOfJoining"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
         app:fontFamily="@font/roboto_medium"
@@ -265,6 +304,8 @@
         android:text=""
         app:layout_constraintTop_toBottomOf="@+id/textFatherNameTxt"
         android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="0dp"
         />
 
 
@@ -294,6 +335,8 @@
         android:text=""
         app:layout_constraintTop_toBottomOf="@+id/textMotherNameTxt"
         android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="0dp"
         />
 
 
@@ -323,6 +366,8 @@
         android:text=""
         app:layout_constraintTop_toBottomOf="@+id/textSpouseNameTxt"
         android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="0dp"
         />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -351,6 +396,8 @@
         android:text=""
         app:layout_constraintTop_toBottomOf="@+id/textMarriageAnniversaryTxt"
         android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="0dp"
         />
 
 
@@ -365,7 +412,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
         app:fontFamily="@font/roboto_medium"
-        android:text="@string/identityNumberCol"
+        android:text="Aadhaar Number"
         android:visibility="visible"
         android:layout_marginTop="@dimen/_10sdp"
         />
@@ -375,11 +422,13 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
         style="@style/PrimaryEditText"
-        android:hint="@string/identityNumberCol"
+        android:hint="Aadhaar Number"
         android:paddingHorizontal="@dimen/_10sdp"
         android:text=""
         app:layout_constraintTop_toBottomOf="@+id/textIdentityNumberTxt"
         android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="0dp"
         />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -408,6 +457,8 @@
         android:text=""
         app:layout_constraintTop_toBottomOf="@+id/textPanNumberTxt"
         android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="0dp"
         />
 
 
@@ -437,6 +488,8 @@
         android:text=""
         app:layout_constraintTop_toBottomOf="@+id/textUanNumberTxt"
         android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="0dp"
         />
 
 
@@ -460,7 +513,7 @@
         android:id="@+id/editPermanentaddress"
         style="@style/PrimaryEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_40sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:gravity="top"
         android:hint="@string/permanentAddressCol"
@@ -469,7 +522,8 @@
         android:singleLine="false"
         android:text=""
         app:layout_constraintTop_toBottomOf="@+id/textPermanentaddressTxt"
-        android:maxLength="100"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="0dp"
         />
 
 
@@ -499,6 +553,8 @@
         android:text=""
         app:layout_constraintTop_toBottomOf="@+id/textCountryofbirthTxt"
         android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="0dp"
         />
 
 
@@ -528,6 +584,8 @@
         android:text=""
         app:layout_constraintTop_toBottomOf="@+id/textBirthplaceTxt"
         android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="0dp"
         />
 
 
@@ -557,6 +615,8 @@
         android:text=""
         app:layout_constraintTop_toBottomOf="@+id/textNationalityTxt"
         android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="0dp"
         />
 
 
@@ -586,6 +646,8 @@
         android:text=""
         app:layout_constraintTop_toBottomOf="@+id/textPersonalemailTxt"
         android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="0dp"
         />
 
 
@@ -616,6 +678,8 @@
         android:text=""
         app:layout_constraintTop_toBottomOf="@+id/textBloodgroupTxt"
         android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="0dp"
         />
 
 
@@ -645,6 +709,8 @@
         android:text=""
         app:layout_constraintTop_toBottomOf="@+id/textEmergencymobileColTxt"
         android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="0dp"
         />
 
 
@@ -675,6 +741,8 @@
         android:text=""
         app:layout_constraintTop_toBottomOf="@+id/textLastEducationTxt"
         android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="0dp"
         />
 
 
@@ -690,7 +758,7 @@
         tools:ignore="MissingConstraints"
         app:fontFamily="@font/roboto_medium"
         android:text="@string/GPACol"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_marginTop="@dimen/_10sdp"
         />
 
@@ -702,6 +770,7 @@
         android:hint="@string/GPACol"
         android:paddingHorizontal="@dimen/_10sdp"
         android:text=""
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/textGPATxt"
         android:layout_marginTop="@dimen/_5sdp"
         />
@@ -734,5 +803,7 @@
         android:text=""
         app:layout_constraintTop_toBottomOf="@+id/textWorkExperienceTxt"
         android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        android:layout_marginStart="0dp"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

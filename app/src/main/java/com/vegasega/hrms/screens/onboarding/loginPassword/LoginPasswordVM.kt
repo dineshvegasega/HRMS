@@ -1,6 +1,7 @@
 package com.vegasega.hrms.screens.onboarding.loginPassword
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -41,11 +42,16 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginPasswordVM @Inject constructor(private val repository: Repository
 ): ViewModel() {
+
+
+    var loginType = 1
+
     fun login(view: View, jsonObject: JSONObject) = viewModelScope.launch {
         repository.callApi(
             callHandler = object : CallHandler<Response<BaseResponseDC<JsonElement>>> {
                 override suspend fun sendRequest(apiInterface: ApiInterface) =
                     apiInterface.login(requestBody = jsonObject.getJsonRequestBody())
+                @SuppressLint("SuspiciousIndentation")
                 override fun success(response: Response<BaseResponseDC<JsonElement>>) {
                     if (response.isSuccessful){
                         if(response.body()!!.user != null){
@@ -53,18 +59,40 @@ class LoginPasswordVM @Inject constructor(private val repository: Repository
                             saveData(AUTH, response.body()!!.token ?: "")
                             saveObject(LOGIN_DATA, data)
                             TOKEN = response.body()!!.token ?: ""
-                            if (data.is_active != 1){
-                                view.findNavController().navigate(R.id.action_loginPassword_to_resetPassword, Bundle().apply {
-                                    putString("email", data.email)
-                                    putString("from", "login")
-                                })
-                            } else {
-                                Log.e("data", "Dataaaaa "+ data.user_role.toString())
-                                profile(view){
-                                    showSnackBar(view.resources.getString(R.string.logged_in_successfully))
-                                    MainActivity.mainActivity.get()?.reloadActivity("en", Main)
+
+                            if (data.role_id == 3){
+                                if (loginType == 1){
+                                    profile(view){
+                                        showSnackBar(view.resources.getString(R.string.logged_in_successfully))
+                                        MainActivity.mainActivity.get()?.reloadActivity("en", Main)
+                                    }
+                                } else {
+                                    showSnackBar("Invalid Login Details")
+                                }
+                            } else if (data.role_id == 1){
+                                if (loginType == 1){
+                                    profile(view){
+                                        showSnackBar(view.resources.getString(R.string.logged_in_successfully))
+                                        MainActivity.mainActivity.get()?.reloadActivity("en", Main)
+                                    }
+                                } else {
+                                    showSnackBar("Invalid Login Details")
                                 }
                             }
+
+
+//                            if (data.is_active != 1){
+//                                view.findNavController().navigate(R.id.action_loginPassword_to_resetPassword, Bundle().apply {
+//                                    putString("email", data.email)
+//                                    putString("from", "login")
+//                                })
+//                            } else {
+//                                Log.e("data", "Dataaaaa "+ data.user_role.toString())
+//                                profile(view){
+//                                    showSnackBar(view.resources.getString(R.string.logged_in_successfully))
+//                                    MainActivity.mainActivity.get()?.reloadActivity("en", Main)
+//                                }
+//                            }
                         }else if(response.body()!!.message == "User does not exist"){
                             showSnackBar(view.resources.getString(R.string.user_does_not_exist))
                         } else {

@@ -7,13 +7,7 @@
       ]
     },
     {
-      "name": "Employees Performance Score",
-      "headlines": [
-
-      ]
-    },
-    {
-      "name": "Employees Leave Request",
+      "name": "Employee Profile Details",
       "headlines": [
 
       ]
@@ -25,20 +19,26 @@
       ]
     },
     {
+      "name": "Employees Leave Request",
+      "headlines": [
+
+      ]
+    },
+    {
+      "name": "Employees Performance Score",
+      "headlines": [
+
+      ]
+    },
+
+    {
       "name": "Announcements",
       "headlines": [
 
       ]
     },
-
     {
       "name": "Policies",
-      "headlines": [
-
-      ]
-    },
-    {
-      "name": "Profile",
       "headlines": [
 
       ]

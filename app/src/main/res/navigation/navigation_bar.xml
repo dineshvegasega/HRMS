@@ -548,6 +548,13 @@
             />
     </fragment>
 
+    <fragment
+        android:name="com.vegasega.hrms.screens.main.profiles.EmployeeConfiguration"
+        android:label="EmployeeConfiguration"
+        android:id="@+id/employeeConfiguration"
+        tools:layout="@layout/employee_configuration">
+    </fragment>
+
 
     <fragment
         android:name="com.vegasega.hrms.screens.main.notifications.Notifications"

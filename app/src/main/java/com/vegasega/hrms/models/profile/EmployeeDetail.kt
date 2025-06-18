@@ -1,9 +1,15 @@
 package com.vegasega.hrms.models.profile
 
 data class EmployeeDetail(
+    val account_holder_name: String,
+    val account_type: String,
     val address: String,
+    val bank_account_number: String,
+    val bank_name: String,
     val birth_place: String,
     val blood_group: String,
+    val branch_name_address: String,
+    val city: String,
     val country_of_birth: String,
     val created_at: String,
     val cv: String,
@@ -14,8 +20,10 @@ data class EmployeeDetail(
     val father_name: String,
     val gender: String,
     val gpa: String,
+    val highest_qualification: String,
     val id: Int,
     val identity_number: String,
+    val ifsc_code: String,
     val last_education: String,
     val marriage_anniversary: String,
     val mother_name: String,
@@ -26,8 +34,11 @@ data class EmployeeDetail(
     val permanent_address: String,
     val phone: String,
     val photo: String,
+    val pincode: String,
     val previous_employee_details: String,
+    val reporting_manager_name: String,
     val spouse_name: String,
+    val state: String,
     val uan_no: String,
     val updated_at: String,
     val work_experience_in_years: Int

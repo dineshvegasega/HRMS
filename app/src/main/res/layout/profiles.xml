@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="visible"
+        android:visibility="gone"
         />
 
     <include layout="@layout/dashboard_complete_profile"
@@ -82,17 +82,100 @@
         android:visibility="gone"
         />
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearProfileImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        >
+
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivProfileImage"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            app:srcCompat="@drawable/no_image_modified"
+            android:theme="@style/RoundCorner50"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/_2C2C2C"
+            android:textSize="@dimen/_12sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivProfileImage"
+            android:layout_marginTop="@dimen/_6sdp"
+            tools:ignore="MissingConstraints"
+            app:fontFamily="@font/roboto_medium"
+            android:text="Full Name:"
+            android:visibility="visible"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textActive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:background="@drawable/blue_fade"
+            android:backgroundTint="@color/_138808"
+            android:textSize="@dimen/_9sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            app:layout_constraintTop_toTopOf="@+id/textName"
+            app:layout_constraintStart_toEndOf="@+id/ivProfileImage"
+            android:layout_marginTop="@dimen/_20sdp"
+            tools:ignore="MissingConstraints"
+            app:fontFamily="@font/roboto_medium"
+            android:text="Active"
+            android:visibility="visible"
+            android:paddingVertical="@dimen/_3sdp"
+            android:paddingHorizontal="@dimen/_8sdp"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnProfileImage"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:cornerRadius="@dimen/_5sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/add_photo_alternate_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="@dimen/_3sdp"
+            app:backgroundTint="@color/_E79D46"
+            android:visibility="gone"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutTabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btSave"
-        android:backgroundTint="@color/_FEF7FF"
+        app:layout_constraintTop_toBottomOf="@+id/linearProfileImage"
+        android:backgroundTint="@color/white"
         android:layout_marginTop="@dimen/_10sdp"
-        android:visibility="gone"
-        android:background="@color/_FEF7FF">
+        android:visibility="visible"
+        android:background="@color/white">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
@@ -101,10 +184,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tabMode="fixed"
+            app:tabMode="scrollable"
             app:tabGravity="fill"
-            app:tabPaddingStart="0dp"
-            app:tabPaddingEnd="0dp"
+            app:tabPaddingStart="10dp"
+            app:tabPaddingEnd="10dp"
             android:clipToPadding="true"
             app:tabTextAppearance="@style/customTextAppearanceTab"
             style="@style/customTextAppearanceTab"
@@ -113,18 +196,10 @@
             app:tabIndicatorHeight="@dimen/_3sdp"
             app:tabIndicatorColor="@color/_E79D46"
             android:layout_marginHorizontal="@dimen/_10sdp"
-            android:backgroundTint="@color/_FEF7FF"
+            android:backgroundTint="@color/white"
             >
         </com.google.android.material.tabs.TabLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:background="#ffe9cc"
-            >
-        </View>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -137,225 +212,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="gone"
+        android:visibility="visible"
         >
     </androidx.viewpager2.widget.ViewPager2>
 
 
-
-
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@+id/layoutTabLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:scrollbars="vertical"
-        android:scrollbarSize="@dimen/_3sdp"
-        android:scrollbarThumbVertical="@color/_E79D46"
-        android:fadeScrollbars="false"
-        >
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="@dimen/_10sdp"
-            android:orientation="vertical"
-            android:paddingVertical="@dimen/_10sdp"
-            >
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/linearProfileImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                >
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/ivProfileImage"
-                    android:layout_width="@dimen/_100sdp"
-                    android:layout_height="@dimen/_100sdp"
-                    app:srcCompat="@drawable/no_image_modified"
-                    android:theme="@style/RoundCorner50"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnProfileImage"
-                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    app:cornerRadius="@dimen/_5sdp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:background="@drawable/add_photo_alternate_24"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_margin="@dimen/_3sdp"
-                    app:backgroundTint="@color/_E79D46"
-                    android:visibility="gone"
-                    />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textFNTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/_2C2C2C"
-                android:textSize="@dimen/_12sdp"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                app:layout_constraintTop_toBottomOf="@+id/linearProfileImage"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="@dimen/_20sdp"
-                tools:ignore="MissingConstraints"
-                app:fontFamily="@font/roboto_medium"
-                android:text="@string/nameStar"
-                android:visibility="visible"
-                />
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/editTextName"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_40sdp"
-                style="@style/PrimaryEditText"
-                android:hint="@string/nameStar"
-                android:text=""
-                app:layout_constraintTop_toBottomOf="@+id/textFNTxt"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:maxLength="25"
-                />
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textEmailTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/_2C2C2C"
-                android:textSize="@dimen/_12sdp"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                app:layout_constraintTop_toBottomOf="@+id/editTextName"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="MissingConstraints"
-                app:fontFamily="@font/roboto_medium"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:text="@string/emailAddr"
-                android:visibility="visible"
-                />
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/editEmail"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_40sdp"
-                style="@style/PrimaryEditText"
-                android:hint="@string/emailAddr"
-                app:layout_constraintStart_toStartOf="parent"
-                android:paddingHorizontal="@dimen/_10sdp"
-                android:text=""
-                app:layout_constraintTop_toBottomOf="@+id/textEmailTxt"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:maxLength="25"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-
-
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textMobileTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/_2C2C2C"
-                android:textSize="@dimen/_12sdp"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                app:layout_constraintTop_toBottomOf="@+id/editEmail"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="MissingConstraints"
-                app:fontFamily="@font/roboto_medium"
-                android:text="@string/mobileNumberStar"
-                android:visibility="visible"
-                    android:layout_marginTop="@dimen/_10sdp"
-                />
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/editMobile"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                style="@style/PrimaryEditText"
-                android:hint="@string/mobileNumberStar"
-                android:paddingHorizontal="@dimen/_10sdp"
-                android:text=""
-                app:layout_constraintTop_toBottomOf="@+id/textMobileTxt"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:maxLength="25"
-                />
-
-
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textCurrentAddressTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/_2C2C2C"
-                android:textSize="@dimen/_12sdp"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_25sdp"
-                app:layout_constraintTop_toBottomOf="@+id/editMobile"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="MissingConstraints"
-                app:fontFamily="@font/roboto_medium"
-                android:text="@string/current_addressStar"
-                android:visibility="visible"
-                android:layout_marginTop="@dimen/_10sdp"
-                />
-
-
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/editTextAddress"
-                style="@style/PrimaryEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:gravity="top"
-                android:hint="@string/address"
-                android:minHeight="@dimen/_80sdp"
-                android:paddingVertical="@dimen/_10sdp"
-                android:singleLine="false"
-                android:text=""
-                app:layout_constraintTop_toBottomOf="@+id/textCurrentAddressTxt"
-                android:maxLength="100"
-                />
-
-
-
-            <include layout="@layout/include_profile_info"
-                android:id="@+id/include_profile_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/editTextAddress"
-                android:visibility="visible"
-                />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
 
 
 

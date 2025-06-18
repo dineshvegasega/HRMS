@@ -39,7 +39,7 @@
     <string name="completeProfileRegistration">Complete Profile Registration</string>
     <string name="fast_process">Fast Process</string>
     <string name="login_here">Login Here</string>
-    <string name="enter_your_login_details_here">Enter Your Login Details Here</string>
+    <string name="enter_your_login_details_here">Enter your details here to login to your account</string>
     <string name="login_with_otp">Login With OTP</string>
     <string name="quick_registration">Registration</string>
     <string name="enter_your_details_for_quick_register">Enter Your Details For Quick Register</string>
@@ -110,7 +110,7 @@
     <string name="YourPassword">Your Password</string>
     <string name="register_for_new_account">Register For New Account?</string>
     <string name="Forgot">Forgot</string>
-    <string name="ForgotPassword">Forgot Password</string>
+    <string name="ForgotPassword">Forgot Password?</string>
     <string name="EnterDetailstoSetpassword">Enter Details to Set password</string>
     <string name="send_otp">Send OTP</string>
     <string name="verify_otp">Verify OTP</string>
@@ -297,7 +297,7 @@
     <string name="enter_market_place">Enter Market Place</string>
     <string name="enter_vending">Enter Vending</string>
     <string name="select_scheme">Select Scheme</string>
-    <string name="VEGASEGA_Street_Vendor_Dashboard" translatable="false">Welcome to Dashboard</string>
+    <string name="VEGASEGA_Street_Vendor_Dashboard" translatable="false">Welcome to Vegasega</string>
 
     <string name="profiles">Profile</string>
     <string name="live_schemes">Live Schemes</string>
@@ -1018,21 +1018,21 @@
     <string name="positionCol">Position:</string>
     <string name="genderCol">Gender:</string>
     <string name="dateOfBirthCol">Date Of Birth:</string>
-    <string name="fatherCol">Father Name:</string>
-    <string name="motherCol">Mother Name:</string>
-    <string name="spouseCol">Spouse Name:</string>
-    <string name="marriageAnniversaryCol">Marriage Anniversary:</string>
+    <string name="fatherCol">Father Name</string>
+    <string name="motherCol">Mother Name</string>
+    <string name="spouseCol">Spouse Name</string>
+    <string name="marriageAnniversaryCol">Marriage Anniversary</string>
     <string name="identityNumberCol">Identity Number:</string>
-    <string name="panNumberCol">Pan Number:</string>
-    <string name="uanNumberCol">Uan Number:</string>
+    <string name="panNumberCol">PAN Number:</string>
+    <string name="uanNumberCol">UAN Number:</string>
     <string name="permanentAddressCol">Permanent address:</string>
-    <string name="countryofbirthCol">Country of birth:</string>
-    <string name="birthplaceCol">Birth place:</string>
+    <string name="countryofbirthCol">Country of Birth:</string>
+    <string name="birthplaceCol">Place of Birth:</string>
     <string name="nationalityCol">Nationality:</string>
-    <string name="personalemailCol">Personal email:</string>
-    <string name="emergencymobileCol">Emergency mobile:</string>
-    <string name="bloodgroupCol">Blood group:</string>
-    <string name="lastEducationCol">Last Education:</string>
+    <string name="personalemailCol">Personal Email</string>
+    <string name="emergencymobileCol">Emergency Mobile</string>
+    <string name="bloodgroupCol">Blood Group:</string>
+    <string name="lastEducationCol">Highest Qualification:</string>
     <string name="GPACol">GPA:</string>
     <string name="workExperienceCol">Work Experience (in years):</string>
     <string name="check_in">Check In</string>

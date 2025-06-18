@@ -7,6 +7,16 @@
     android:layout_height="wrap_content"
     >
 
+    <ImageView
+        android:id="@+id/profile_image_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/as"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.5" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -126,10 +136,90 @@
             android:text=""
             android:maxLength="100"
             app:layout_constraintEnd_toEndOf="parent"
-app:layout_constraintStart_toStartOf="parent"            app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
            >
 
         <requestFocus />
     </AutoCompleteTextView>
+
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textEmailTxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+        android:textColor="@color/_0E0E2C"
+        android:textSize="@dimen/_16sdp"
+        android:fontFamily="@font/roboto_medium"
+        app:fontFamily="@font/roboto_medium"
+        android:layout_marginTop="@dimen/_18sdp"
+        app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutOfficialEmailID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/textEmailTxt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_20sdp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textOfficialEmailIDTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/_9A9A9A"
+            android:textSize="@dimen/_12sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            app:fontFamily="@font/roboto_medium"
+            android:text="Official Email ID:"
+            android:visibility="visible"
+            android:layout_marginTop="@dimen/_2sdp"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutOfficialEmailIDInner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textOfficialEmailIDTxt"
+            android:layout_marginEnd="@dimen/_10sdp"
+            >
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/editOfficialEmailID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/blue_fade"
+                android:hint="Official Email ID:"
+                android:textColor="@color/_2C2C2C"
+                app:fontFamily="@font/roboto_medium"
+                android:textSize="@dimen/_12sdp"
+                android:gravity="end"
+                android:text=""
+                app:layout_constraintTop_toTopOf="parent"
+                android:maxLength="25"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:paddingVertical="@dimen/_3sdp"
+                android:focusable="false"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

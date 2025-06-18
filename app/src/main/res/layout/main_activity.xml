@@ -140,12 +140,12 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/mainTopHeader"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_45sdp"
+                    android:layout_height="@dimen/_50sdp"
                     android:orientation="vertical"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:background="@color/_E79D46"
+                    android:background="@color/white"
                     >
 
 
@@ -165,7 +165,7 @@
                         android:id="@+id/textTitleMain"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
+                        android:textColor="@color/_E79D46"
                         android:textSize="@dimen/_12sdp"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -179,6 +179,16 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <View
+                    android:id="@+id/view_id1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mainTopHeader"
+                    android:background="@color/_E79D46"
+                    >
+                </View>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view"
@@ -187,7 +197,7 @@
                     android:visibility="visible"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/mainTopHeader"
+                    app:layout_constraintTop_toBottomOf="@+id/view_id1"
                     app:layout_constraintBottom_toTopOf="@+id/layout_down"
                     tools:listitem="@layout/item_menu"
                     />
