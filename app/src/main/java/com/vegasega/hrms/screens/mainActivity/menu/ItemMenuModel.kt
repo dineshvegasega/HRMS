@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 class ItemMenuModel(
+    @SerializedName("icon")
+    var icon: String? = null,
     @SerializedName("name")
     var title: String? = null,
     @SerializedName("headlines")

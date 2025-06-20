@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -16,32 +17,25 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.vegasega.hrms.networking.ApiInterface
-import com.vegasega.hrms.networking.CallHandler
-import com.vegasega.hrms.networking.Repository
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.vegasega.hrms.R
 import com.vegasega.hrms.databinding.ItemMenuBinding
-import com.vegasega.hrms.datastore.DataStoreKeys.LOGIN_DATA
 import com.vegasega.hrms.datastore.DataStoreKeys.PROFILE_DATA
 import com.vegasega.hrms.datastore.DataStoreUtil.readData
 import com.vegasega.hrms.datastore.DataStoreUtil.saveObject
 import com.vegasega.hrms.genericAdapter.GenericAdapter
 import com.vegasega.hrms.models.BaseResponseDC
-import com.vegasega.hrms.models.Login
 import com.vegasega.hrms.models.ItemAds
 import com.vegasega.hrms.models.profile.Profile
-import com.vegasega.hrms.networking.USER_TYPE
-import com.vegasega.hrms.networking.USER_TYPE_ADMIN
-import com.vegasega.hrms.screens.main.dashboard.Dashboard
-import com.vegasega.hrms.screens.main.members.MemberList
-import com.vegasega.hrms.screens.main.NBPA.NBPAList
-import com.vegasega.hrms.screens.main.NBPA.checkDetails.CheckDetails
+import com.vegasega.hrms.networking.ApiInterface
+import com.vegasega.hrms.networking.CallHandler
+import com.vegasega.hrms.networking.Repository
 import com.vegasega.hrms.screens.main.accounts.roles.Roles
 import com.vegasega.hrms.screens.main.accounts.users.Users
 import com.vegasega.hrms.screens.main.announcements.Announcements
 import com.vegasega.hrms.screens.main.attendances.Attendances
+import com.vegasega.hrms.screens.main.dashboard.Dashboard
 import com.vegasega.hrms.screens.main.data.departments.Departments
 import com.vegasega.hrms.screens.main.data.employees.Employees
 import com.vegasega.hrms.screens.main.data.positions.Positions
@@ -52,11 +46,9 @@ import com.vegasega.hrms.screens.main.profiles.EmployeeConfiguration
 import com.vegasega.hrms.screens.main.profiles.Profiles
 import com.vegasega.hrms.screens.main.recruitments.Recruitments
 import com.vegasega.hrms.screens.main.scoreCategories.ScoreCategories
-import com.vegasega.hrms.screens.main.settings.Settings
 import com.vegasega.hrms.screens.mainActivity.MainActivity.Companion.navHostFragment
 import com.vegasega.hrms.screens.mainActivity.menu.ItemChildMenuModel
 import com.vegasega.hrms.screens.mainActivity.menu.ItemMenuModel
-import com.vegasega.hrms.utils.showSnackBar
 import com.vegasega.hrms.utils.singleClick
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -112,21 +104,27 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
         override fun onCreateView(
             inflater: LayoutInflater,
             parent: ViewGroup,
-            viewType: Int
+            viewType: Int,
         ) = ItemMenuBinding.inflate(inflater, parent, false)
 
         @SuppressLint("NotifyDataSetChanged", "SuspiciousIndentation")
         override fun onBindHolder(
             binding: ItemMenuBinding,
             dataClass: ItemMenuModel,
-            position: Int
+            position: Int,
         ) {
-
             binding.apply {
                 if (selectedPosition == position) {
                     ivArrow.setImageResource(if (dataClass.isExpanded == true) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down)
                     recyclerViewChild.visibility =
                         if (dataClass.isExpanded == true) View.VISIBLE else View.GONE
+//                        if (dataClass.isExpanded == true) {
+//                            recyclerViewChild.startAnimation(AnimationUtils.loadAnimation(root.context,R.anim.slide_down));
+//                            recyclerViewChild.visibility = View.VISIBLE
+//                        } else {
+//                            recyclerViewChild.startAnimation(AnimationUtils.loadAnimation(root.context,R.anim.slide_up));
+//                            recyclerViewChild.visibility = View.GONE
+//                        }
                 } else {
                     ivArrow.setImageResource(R.drawable.ic_arrow_down)
                     recyclerViewChild.visibility = View.GONE
@@ -141,16 +139,19 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
                         ColorStateList.valueOf(
                             ContextCompat.getColor(
                                 root.context,
-                                R.color._EDB678
+                                R.color._0E0E2C
                             )
                         )
                     )
                 } else {
                     header.setBackgroundTintList(
-                        ColorStateList.valueOf(ContextCompat.getColor(root.context, R.color.white))
+                        ColorStateList.valueOf(ContextCompat.getColor(root.context, R.color._00000000))
                     )
                 }
 
+                val res: Int =
+                    root.context.resources.getIdentifier(dataClass.icon, "drawable", root.context.packageName)
+                ivMenu.setImageResource(res);
 
                 title.text = dataClass.title
                 if (dataClass.titleChildArray!!.isEmpty()) {
@@ -448,13 +449,15 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
 
             if (selectedChildColorPosition == position) {
                 holder.child.setBackgroundTintList(
-                    ColorStateList.valueOf(ContextCompat.getColor(mainContext, R.color._f6dbbb))
+                    ColorStateList.valueOf(ContextCompat.getColor(mainContext, R.color._D9252574))
                 )
             } else {
                 holder.child.setBackgroundTintList(
-                    ColorStateList.valueOf(ContextCompat.getColor(mainContext, R.color.white))
+                    ColorStateList.valueOf(ContextCompat.getColor(mainContext, R.color._00000000))
                 )
             }
+
+
 
             holder.itemView.singleClick {
                 selectedChildColorPosition = position

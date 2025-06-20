@@ -1,84 +1,85 @@
 {
   "menu": [
     {
+      "icon": "dashboard_menu_icon",
       "name": "Dashboard",
       "headlines": [
 
       ]
     },
     {
-      "name": "Profile",
+      "icon": "client_management",
+      "name": "Employee Information Management",
       "headlines": [
 
       ]
     },
     {
-      "name": "Data",
-      "headlines": [
-        {
-          "title": "Employees"
-        },
-        {
-          "title": "Departments"
-        },
-        {
-          "title": "Positions"
-        }
-      ]
-    },
-    {
-      "name": "Employees Performance Score",
-      "headlines": [
-
-      ]
-    },
-    {
-      "name": "Employees Leave Request",
-      "headlines": [
-
-      ]
-    },
-    {
+      "icon": "checked_user_male",
       "name": "Attendances",
       "headlines": [
 
       ]
     },
     {
-      "name": "Announcements",
+      "icon": "logout",
+      "name": "Employee Leave Management",
       "headlines": [
 
       ]
     },
     {
-      "name": "Recruitments",
+      "icon": "salary_female",
+      "name": "Payroll",
       "headlines": [
 
       ]
     },
     {
-      "name": "Score Categories",
-      "headlines": [
-
-      ]
-    },
-    {
-      "name": "Accounts",
+      "icon": "human_research_program",
+      "name": "Recruitment & Onboarding",
       "headlines": [
         {
-          "title": "Users"
+          "title": "Job posting & application tracking"
         },
         {
-          "title": "Roles"
+          "title": "Resume filtering"
+        },
+        {
+          "title": "Interview Scheduling"
+        },
+        {
+          "title": "Digital onboarding process"
         }
       ]
     },
     {
-      "name": "Policies",
+      "icon": "increase",
+      "name": "Performance Management",
+      "headlines": [
+
+      ]
+    },
+    {
+      "icon": "commercial",
+      "name": "Announcement",
+      "headlines": [
+
+      ]
+    },
+    {
+      "icon": "signing_document",
+      "name": "Policy",
+      "headlines": [
+
+      ]
+    },
+    {
+      "icon": "logout_reverse",
+      "name": "Exit & Offboarding",
       "headlines": [
 
       ]
     }
-
   ]
 }

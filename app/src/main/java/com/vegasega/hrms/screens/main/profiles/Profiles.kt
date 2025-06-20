@@ -82,32 +82,32 @@ class Profiles : Fragment() {
 //        callBackListener = this
 
         binding.apply {
-            inclideHeaderSearch.textHeaderTxt.text = "Personal Details"
-            inclideHeaderSearch.editTextSearch.visibility = View.GONE
-
-            inclideHeaderSearch.textHeaderEditTxt.visibility = View.GONE
-            inclideHeaderSearch.textHeaderEditTxt.singleClick {
-                inclideHeaderSearch.textHeaderEditTxt.visibility = View.INVISIBLE
-                btSave.visibility = View.VISIBLE
-                btCancel.visibility = View.VISIBLE
-                viewModel.isEditable.value = true
-            }
-
-            btSave.singleClick {
-//                checkValidationClick()
-            }
-
-
-            btCancel.singleClick {
-                inclideHeaderSearch.textHeaderEditTxt.visibility = View.VISIBLE
-                btSave.visibility = View.GONE
-                btCancel.visibility = View.GONE
-                viewModel.isEditable.value = false
-            }
-
-            inclideHeaderSearch.btNominee.singleClick {
-                view.findNavController().navigate(R.id.action_profiles_to_nomineeDetails)
-            }
+//            inclideHeaderSearch.textHeaderTxt.text = "Personal Details"
+//            inclideHeaderSearch.editTextSearch.visibility = View.GONE
+//
+//            inclideHeaderSearch.textHeaderEditTxt.visibility = View.GONE
+//            inclideHeaderSearch.textHeaderEditTxt.singleClick {
+//                inclideHeaderSearch.textHeaderEditTxt.visibility = View.INVISIBLE
+//                btSave.visibility = View.VISIBLE
+//                btCancel.visibility = View.VISIBLE
+//                viewModel.isEditable.value = true
+//            }
+//
+//            btSave.singleClick {
+////                checkValidationClick()
+//            }
+//
+//
+//            btCancel.singleClick {
+//                inclideHeaderSearch.textHeaderEditTxt.visibility = View.VISIBLE
+//                btSave.visibility = View.GONE
+//                btCancel.visibility = View.GONE
+//                viewModel.isEditable.value = false
+//            }
+//
+//            inclideHeaderSearch.btNominee.singleClick {
+//                view.findNavController().navigate(R.id.action_profiles_to_nomineeDetails)
+//            }
 
             adapter= ProfilePagerAdapter(requireActivity())
             adapter.notifyDataSetChanged()

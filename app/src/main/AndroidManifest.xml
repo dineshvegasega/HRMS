@@ -68,7 +68,7 @@
 
 
         <activity
-            android:name=".screens.mainActivity.MainActivity"
+            android:name=".screens.Test"
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"

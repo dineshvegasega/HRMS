@@ -43,7 +43,6 @@
     <color name="_ffffffff">#FFFFFFFF</color>
     <color name="_00000000">#00ffffff</color>
 
-
     <color name="_363438">#363438</color>
     <color name="_272727">#272727</color>
     <color name="_666666">#666666</color>
@@ -69,7 +68,11 @@
     <color name="_EBEBEB">#EBEBEB</color>
     <color name="_1D1B20">#1D1B20</color>
     <color name="_0E0E2C">#0E0E2C</color>
-
+    <color name="_B30E0E2C">#B30E0E2C</color>
+    <color name="_D9252574">#8C0E0E2C</color>
+    <color name="_5B5B70">#5B5B70</color>
+    <color name="_9999ac">#9999ac</color>
+    <color name="_C5C5CF">#C5C5CF</color>
 
     <color name="_FF5555">#FF5555</color>
     <color name="_262626">#262626</color>

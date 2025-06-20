@@ -100,10 +100,10 @@ class LoginPassword : Fragment() {
                     showSnackBar(getString(R.string.enterEmailAddr))
                 } else if (binding.editTextPassword.text.toString().isEmpty()) {
                     showSnackBar(getString(R.string.EnterPassword))
-                } else if (binding.editTextPassword.text.toString().length >= 0 && binding.editTextPassword.text.toString().length < 8) {
-                    showSnackBar(getString(R.string.InvalidPassword))
-//                    } else if(!isValidPassword(editTextPassword.text.toString().trim())){
-//                        showSnackBar(getString(R.string.InvalidPassword))
+//                } else if (binding.editTextPassword.text.toString().length >= 0 && binding.editTextPassword.text.toString().length < 8) {
+//                    showSnackBar(getString(R.string.InvalidPassword))
+////                    } else if(!isValidPassword(editTextPassword.text.toString().trim())){
+////                        showSnackBar(getString(R.string.InvalidPassword))
                 } else {
                     val obj: JSONObject = JSONObject().apply {
                         put(email, binding.editTextMobileNumber.text.toString())

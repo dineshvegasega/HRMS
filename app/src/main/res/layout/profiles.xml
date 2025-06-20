@@ -5,108 +5,77 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@drawable/gradient_background">
 
-    <include layout="@layout/header_search"
-        android:id="@+id/inclide_header_search"
-        android:layout_width="match_parent"
+
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"
-        />
-
-    <include layout="@layout/dashboard_complete_profile"
-        android:id="@+id/inclide_complete_profile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/inclide_header_search"
-        android:visibility="gone"
-        />
-
-    <include layout="@layout/profiles_personal_detail"
-        android:id="@+id/inclide_personal_profile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/inclide_complete_profile"
-        android:visibility="gone"
-        />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btSave"
-        style="@style/PrimaryButtonYellow"
-        app:backgroundTint="@color/_E79D46"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_32sdp"
-        android:layout_weight="1"
-        android:paddingHorizontal="@dimen/_20sdp"
-        android:paddingVertical="@dimen/_7sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:textColor="@color/white"
-        android:text="@string/saveUpdate"
-        android:textSize="@dimen/_11sdp"
-        app:cornerRadius="@dimen/_4sdp"
-        app:layout_constraintEnd_toStartOf="@+id/btCancel"
+        app:layout_constraintDimensionRatio="H,1:1.1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inclide_personal_profile"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:strokeColor="@color/_E79D46"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/left_gray"
+        android:scaleType="centerInside"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_gravity="center"
         />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btCancel"
-        style="@style/PrimaryButtonYellow"
-        app:backgroundTint="@color/_FFEBD3"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_32sdp"
-        android:layout_weight="1"
-        android:paddingHorizontal="@dimen/_20sdp"
-        android:paddingVertical="@dimen/_7sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:text="@string/cancel"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_11sdp"
-        app:cornerRadius="@dimen/_4sdp"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintDimensionRatio="H,1:1.1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btSave"
-        app:layout_constraintTop_toBottomOf="@+id/inclide_personal_profile"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        android:layout_marginStart="@dimen/_15sdp"
-        app:strokeColor="@color/_E79D46"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/right_gray"
+        android:scaleType="centerInside"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_gravity="center"
         />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/linearProfileImage"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingVertical="@dimen/_10sdp"
+        android:layout_marginBottom="-5dp"
+        android:background="@drawable/bg_bottom_cornor"
+        android:backgroundTint="#10000000"
+        android:alpha="0.3"
+        >
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearProfileImage"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginStart="@dimen/_10sdp"
+        android:background="@drawable/bg_bottom_cornor"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingVertical="@dimen/_10sdp"
         >
 
 
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivProfileImage"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="@dimen/_45sdp"
             app:srcCompat="@drawable/no_image_modified"
-            android:theme="@style/RoundCorner50"
+            android:theme="@style/RoundCorner20"
             android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-
             />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -114,36 +83,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/_2C2C2C"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_14sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivProfileImage"
             android:layout_marginTop="@dimen/_6sdp"
             tools:ignore="MissingConstraints"
-            app:fontFamily="@font/roboto_medium"
+            app:fontFamily="@font/poppins_bold"
             android:text="Full Name:"
             android:visibility="visible"
             />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textActive"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:background="@drawable/blue_fade"
-            android:backgroundTint="@color/_138808"
-            android:textSize="@dimen/_9sdp"
-            android:layout_marginHorizontal="@dimen/_15sdp"
-            app:layout_constraintTop_toTopOf="@+id/textName"
-            app:layout_constraintStart_toEndOf="@+id/ivProfileImage"
-            android:layout_marginTop="@dimen/_20sdp"
-            tools:ignore="MissingConstraints"
-            app:fontFamily="@font/roboto_medium"
-            android:text="Active"
-            android:visibility="visible"
-            android:paddingVertical="@dimen/_3sdp"
-            android:paddingHorizontal="@dimen/_8sdp"
-            />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnProfileImage"
@@ -165,6 +116,9 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutTabLayout"
         android:layout_width="match_parent"
@@ -172,10 +126,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearProfileImage"
-        android:backgroundTint="@color/white"
         android:layout_marginTop="@dimen/_10sdp"
         android:visibility="visible"
-        android:background="@color/white">
+        android:background="@color/transparent">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
@@ -196,9 +149,23 @@
             app:tabIndicatorHeight="@dimen/_3sdp"
             app:tabIndicatorColor="@color/_E79D46"
             android:layout_marginHorizontal="@dimen/_10sdp"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/transparent"
             >
         </com.google.android.material.tabs.TabLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="MissingConstraints"
+            android:visibility="visible"
+            android:background="#0E0E2C"
+            android:alpha=".35"
+            />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

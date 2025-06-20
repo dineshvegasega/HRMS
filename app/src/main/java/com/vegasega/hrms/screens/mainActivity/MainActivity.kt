@@ -20,6 +20,10 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
+import android.graphics.RenderEffect
+import android.graphics.Shader
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.location.Location
 import android.net.Uri
 import android.os.Build
@@ -32,6 +36,7 @@ import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
@@ -51,6 +56,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions.bitmapTransform
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -82,14 +89,12 @@ import com.vegasega.hrms.screens.mainActivity.MainActivityVM.Companion.locale
 import com.vegasega.hrms.screens.mainActivity.MainActivityVM.Companion.userIdForGlobal
 import com.vegasega.hrms.screens.mainActivity.MainActivityVM.Companion.userType
 import com.vegasega.hrms.screens.mainActivity.menu.JsonHelper
+import com.vegasega.hrms.utils.BlurTransformation
 import com.vegasega.hrms.utils.LocaleHelper
 import com.vegasega.hrms.utils.autoScroll
 import com.vegasega.hrms.utils.callNetworkDialog
 import com.vegasega.hrms.utils.callPermissionDialog
-import com.vegasega.hrms.utils.changeDateFormat
-import com.vegasega.hrms.utils.convertToUTC
 import com.vegasega.hrms.utils.getDensityName
-import com.vegasega.hrms.utils.getDuration
 import com.vegasega.hrms.utils.getLocalTime
 import com.vegasega.hrms.utils.getSignature
 import com.vegasega.hrms.utils.imageZoom
@@ -98,7 +103,6 @@ import com.vegasega.hrms.utils.loadImage
 import com.vegasega.hrms.utils.mainThread
 import com.vegasega.hrms.utils.showSnackBar
 import com.vegasega.hrms.utils.singleClick
-import com.vegasega.hrms.utils.timeConversion
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import okhttp3.MultipartBody
@@ -106,13 +110,8 @@ import java.io.File
 import java.io.FileOutputStream
 import java.lang.ref.WeakReference
 import java.net.URL
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -704,7 +703,92 @@ class MainActivity : AppCompatActivity() {
                     Companion.navHostFragment?.navController?.navigateUp()
                 }
             }
+//            BlurImage.with(getApplicationContext()).load(bitmap_Image).intensity(20).Async(true).into(imageView);
+//
+//            BlurImage.with(getApplicationContext()).load(R.drawable.myImage).intensity(20).Async(true).into(imageView);
+//
+//            val bitmap: Bitmap? =
+//                BlurImage.with(getApplicationContext()).load(R.drawable.mountain).intensity(20)
+//                    .Async(true).getImageBlur()
+//
+//            val bitmap: Bitmap? =
+//                BlurImage.with(getApplicationContext()).load(R.drawable.mountain).intensity(20)
+//                    .Async(true).getImageBlur()
 
+
+//            val bitmap = Blurry.with(this@MainActivity)
+//                .radius(10)
+//                .sampling(8)
+//                .capture(findViewById(R.id.imageView123)).get()
+//            imageView123.setImageDrawable(BitmapDrawable(resources, bitmap))
+
+
+//            val radius = 20f
+//
+//            val decorView = getWindow().getDecorView()
+//
+//            // ViewGroup you want to start blur from. Choose root as close to BlurView in hierarchy as possible.
+//            val rootView: ViewGroup? =
+//                decorView.findViewById<View?>(android.R.id.content) as ViewGroup?
+//
+//            Glide.with(this@MainActivity)
+//                .load(R.drawable.top_left_blue)
+//                .apply(bitmapTransform(BlurTransformation(this@MainActivity)))
+//                .into(imageView123)
+
+//            imageView123.setRenderEffect(
+//                RenderEffect.createBlurEffect(
+//                    20.0f, 20.0f, Shader.TileMode.DECAL
+//                )
+//            )
+//
+//            imageView1234.setRenderEffect(
+//                RenderEffect.createBlurEffect(
+//                    20.0f, 20.0f, Shader.TileMode.DECAL
+//                )
+//            )
+
+//            BlurTransformation
+
+            // Optional:
+            // Set drawable to draw in the beginning of each blurred frame.
+            // Can be used in case your layout has a lot of transparent space and your content
+            // gets a too low alpha value after blur is applied.
+//            val windowBackground: Drawable? = decorView.getBackground()
+//            imageView123.setupWith(layout1212) // Optionally pass RenderEffectBlur or RenderScriptBlur as the second parameter
+//                .setFrameClearDrawable(windowBackground) // Optional. Useful when your root has a lot of transparent background, which results in semi-transparent blurred content. This will make the background opaque
+//                .setBlurRadius(radius)
+
+
+//            val bitmap = Blurry.with(this)
+//                .radius(10) // make it more if you want the lue to be more
+//                .sampling(8)
+//                .capture(findViewById(R.id.right_bottom)).get() // get the view you want to blur
+//            imageView.setImageDrawable(BitmapDrawable(resources, bitmap)) // set the value to the background
+
+
+
+//            Glide.with(this@MainActivity).load(R.mipmap.bg)
+//                .apply(bitmapTransform(BlurTransformation(22)))
+//                .into(view.findViewById(R.id.imBg) as ImageView?)
+
+
+
+//            Blurry.with(this@MainActivity).capture(imageView123).into(imageView123)
+
+//            Blurry.with(this@MainActivity)
+//                .radius(10)
+//                .sampling(8)
+//                .color(Color.argb(66, 255, 255, 0))
+//                .async()
+//                .onto(binding.root)
+//
+//            Blurry.with(this@MainActivity)
+//                .radius(10)
+//                .sampling(8)
+//                .color(Color.argb(66, 255, 255, 0))
+//                .async()
+//                .onto(imageView1234)
 
             mainThread {
                 readData(PROFILE_DATA) { loginUser ->

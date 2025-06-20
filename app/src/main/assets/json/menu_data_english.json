@@ -1,43 +1,54 @@
 {
   "menu": [
     {
+      "icon": "dashboard_menu_icon",
       "name": "Dashboard",
       "headlines": [
 
       ]
     },
     {
+      "icon": "client_management",
       "name": "Employee Profile Details",
       "headlines": [
-
+        {
+          "title": "Job posting & application tracking"
+        },
+        {
+          "title": "Resume filtering"
+        }
       ]
     },
     {
+      "icon": "checked_user_male",
       "name": "Attendances",
       "headlines": [
 
       ]
     },
     {
+      "icon": "logout",
       "name": "Employees Leave Request",
       "headlines": [
 
       ]
     },
     {
+      "icon": "increase",
       "name": "Employees Performance Score",
       "headlines": [
 
       ]
     },
-
     {
+      "icon": "commercial",
       "name": "Announcements",
       "headlines": [
 
       ]
     },
     {
+      "icon": "signing_document",
       "name": "Policies",
       "headlines": [
 

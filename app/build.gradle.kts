@@ -195,6 +195,8 @@ dependencies {
 
     implementation (libs.signature)
     implementation (libs.rackMonthPicker)
-
+//    implementation ("jp.wasabeef:blurry:4.0.1")
+    implementation("com.github.Dimezis:BlurView:version-2.0.6")
+//    implementation ("jp.wasabeef:glide-transformations:4.0.0")
 }
 
