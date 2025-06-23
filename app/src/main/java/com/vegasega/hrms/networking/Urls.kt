@@ -30,6 +30,11 @@ const val LEAVE_REQUESTS = "leave-requests"
 const val EMPLOYEE_SCORES = "employee-scores"
 
 
+const val ATTENDANCE = "attendance/"
+
+
+
+
 const val ADD_SCHEME_DETAIL = "add-scheme-detail"
 const val CREATE_FORM = "add-scheme?"
 const val STATE = "state-list?page=1"

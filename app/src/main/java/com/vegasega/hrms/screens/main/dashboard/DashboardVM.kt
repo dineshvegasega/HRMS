@@ -55,6 +55,11 @@ import com.vegasega.hrms.models.dashboard.Holiday
 import com.vegasega.hrms.models.dashboard.ItemDashboard
 import com.vegasega.hrms.models.profile.ItemProfile
 import com.vegasega.hrms.models.profile.Profile
+import com.vegasega.hrms.models.punch.breakIn.ItemBreakStart
+import com.vegasega.hrms.models.punch.breakOut.ItemBreakEnd
+import com.vegasega.hrms.models.punch.punchIn.ItemPunchIn
+import com.vegasega.hrms.models.punch.punchOut.ItemPunchOut
+import com.vegasega.hrms.models.punch.punchStatus.ItemPunchStatus
 import com.vegasega.hrms.networking.getJsonRequestBody
 import com.vegasega.hrms.screens.main.complaintsFeedback.history.History
 import com.vegasega.hrms.screens.main.informationCenter.InformationCenter
@@ -1129,6 +1134,139 @@ class DashboardVM @Inject constructor(private val repository: Repository) : View
             }
         )
     }
+
+
+
+
+    fun punchStatus(callBack: ItemPunchStatus.() -> Unit) = viewModelScope.launch {
+        repository.callApi(
+            callHandler = object : CallHandler<Response<ItemPunchStatus>> {
+                override suspend fun sendRequest(apiInterface: ApiInterface) =
+                    apiInterface.punchStatus()
+
+                override fun success(response: Response<ItemPunchStatus>) {
+                    if (response.isSuccessful) {
+                        showSnackBar(response.body()!!.message)
+                        callBack(response.body()!!)
+                    }
+                }
+
+                override fun error(message: String) {
+                    super.error(message)
+                }
+
+                override fun loading() {
+                    super.loading()
+                }
+            }
+        )
+    }
+
+
+
+
+    fun punchIn(requestBody: RequestBody, callBack: ItemPunchIn.() -> Unit) = viewModelScope.launch {
+        repository.callApi(
+            callHandler = object : CallHandler<Response<ItemPunchIn>> {
+                override suspend fun sendRequest(apiInterface: ApiInterface) =
+                    apiInterface.punchIn(requestBody)
+
+                override fun success(response: Response<ItemPunchIn>) {
+                    if (response.isSuccessful) {
+                        showSnackBar(response.body()!!.message)
+                        callBack(response.body()!!)
+                    }
+                }
+
+                override fun error(message: String) {
+                    super.error(message)
+                }
+
+                override fun loading() {
+                    super.loading()
+                }
+            }
+        )
+    }
+
+
+    fun punchOut(requestBody: RequestBody, callBack: ItemPunchOut.() -> Unit) = viewModelScope.launch {
+        repository.callApi(
+            callHandler = object : CallHandler<Response<ItemPunchOut>> {
+                override suspend fun sendRequest(apiInterface: ApiInterface) =
+                    apiInterface.punchOut(requestBody)
+
+                override fun success(response: Response<ItemPunchOut>) {
+                    if (response.isSuccessful) {
+                        showSnackBar(response.body()!!.message)
+                        callBack(response.body()!!)
+                    }
+                }
+
+                override fun error(message: String) {
+                    super.error(message)
+                }
+
+                override fun loading() {
+                    super.loading()
+                }
+            }
+        )
+    }
+
+
+
+    fun breakStart(requestBody: RequestBody, callBack: ItemBreakStart.() -> Unit) = viewModelScope.launch {
+        repository.callApi(
+            callHandler = object : CallHandler<Response<ItemBreakStart>> {
+                override suspend fun sendRequest(apiInterface: ApiInterface) =
+                    apiInterface.breakStart(requestBody)
+
+                override fun success(response: Response<ItemBreakStart>) {
+                    if (response.isSuccessful) {
+                        showSnackBar(response.body()!!.message)
+                        callBack(response.body()!!)
+                    }
+                }
+
+                override fun error(message: String) {
+                    super.error(message)
+                }
+
+                override fun loading() {
+                    super.loading()
+                }
+            }
+        )
+    }
+
+
+
+
+    fun breakEnd(requestBody: RequestBody, callBack: ItemBreakEnd.() -> Unit) = viewModelScope.launch {
+        repository.callApi(
+            callHandler = object : CallHandler<Response<ItemBreakEnd>> {
+                override suspend fun sendRequest(apiInterface: ApiInterface) =
+                    apiInterface.breakEnd(requestBody)
+
+                override fun success(response: Response<ItemBreakEnd>) {
+                    if (response.isSuccessful) {
+                        showSnackBar(response.body()!!.message)
+                        callBack(response.body()!!)
+                    }
+                }
+
+                override fun error(message: String) {
+                    super.error(message)
+                }
+
+                override fun loading() {
+                    super.loading()
+                }
+            }
+        )
+    }
+
 }
 
 data class ItemModel(

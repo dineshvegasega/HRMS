@@ -10,6 +10,7 @@ import com.vegasega.hrms.databinding.SplashBinding
 import com.vegasega.hrms.datastore.DataStoreKeys.LOGIN_DATA
 import com.vegasega.hrms.datastore.DataStoreUtil.readData
 import com.vegasega.hrms.screens.main.dashboard.Dashboard
+import com.vegasega.hrms.screens.main.dashboard.DashboardAdmin
 import com.vegasega.hrms.screens.mainActivity.MainActivity
 import com.vegasega.hrms.screens.mainActivity.MainActivity.Companion.navHostFragment
 import com.vegasega.hrms.screens.onboarding.start.Start
@@ -55,9 +56,9 @@ class Splash : Fragment() {
                         MainActivity.mainActivity.get()!!.callBack()
                     }
                 }else{
-                    if (fragmentInFrame !is Dashboard){
+                    if (fragmentInFrame !is DashboardAdmin){
                         if(!MainActivity.isBackStack){
-                            navHostFragment?.navController?.navigate(R.id.action_splash_to_dashboard)
+                            navHostFragment?.navController?.navigate(R.id.action_splash_to_dashboardAdmin)
                         }
                         MainActivity.mainActivity.get()!!.callBack()
                    }

@@ -572,7 +572,6 @@ class Dashboard : Fragment() {
 
     fun stop() {
         mHandler.removeCallbacksAndMessages(null);
-//        mHandler.removeCallbacks(task)
     }
 
     var mHandler = Handler(Looper.getMainLooper())

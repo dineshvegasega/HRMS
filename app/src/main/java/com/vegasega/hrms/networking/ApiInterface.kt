@@ -22,6 +22,11 @@ import com.vegasega.hrms.models.leave.ItemLeaveRequest
 import com.vegasega.hrms.models.leave.ItemLeaveRequestPost
 import com.vegasega.hrms.models.leave.viewLeave.ItemViewLeave
 import com.vegasega.hrms.models.profile.ItemProfile
+import com.vegasega.hrms.models.punch.breakIn.ItemBreakStart
+import com.vegasega.hrms.models.punch.breakOut.ItemBreakEnd
+import com.vegasega.hrms.models.punch.punchIn.ItemPunchIn
+import com.vegasega.hrms.models.punch.punchOut.ItemPunchOut
+import com.vegasega.hrms.models.punch.punchStatus.ItemPunchStatus
 import com.vegasega.hrms.models.score.ItemEmployeeScore
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -67,6 +72,31 @@ interface ApiInterface {
     suspend fun attendancesList(
     ): Response<ItemAttendanceList>
 
+
+
+    @GET(ATTENDANCE+"status")
+    suspend fun punchStatus(
+    ): Response<ItemPunchStatus>
+
+    @POST(ATTENDANCE+"punch-in")
+    suspend fun punchIn(
+        @Body hashMap: RequestBody
+    ): Response<ItemPunchIn>
+
+    @POST(ATTENDANCE+"punch-out")
+    suspend fun punchOut(
+        @Body hashMap: RequestBody
+    ): Response<ItemPunchOut>
+
+    @POST(ATTENDANCE+"break/start")
+    suspend fun breakStart(
+        @Body hashMap: RequestBody
+    ): Response<ItemBreakStart>
+
+    @POST(ATTENDANCE+"break/end")
+    suspend fun breakEnd(
+        @Body hashMap: RequestBody
+    ): Response<ItemBreakEnd>
 
     @GET(LEAVE_REQUESTS)
     suspend fun employeesLeaveRequestList(

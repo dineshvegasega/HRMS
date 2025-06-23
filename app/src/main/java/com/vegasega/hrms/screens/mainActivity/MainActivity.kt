@@ -791,7 +791,9 @@ class MainActivity : AppCompatActivity() {
 //                .onto(imageView1234)
 
             mainThread {
+
                 readData(PROFILE_DATA) { loginUser ->
+                    Log.e("TAG", "localeAAXX " + loginUser)
                     if (loginUser != null) {
 //                        Log.e("TAG", "loginUserXX "+loginUser.toString())
                         val data = Gson().fromJson(loginUser, Profile::class.java)
@@ -846,7 +848,7 @@ class MainActivity : AppCompatActivity() {
                                 .build()
                             runOnUiThread {
                                 navHostFragment?.navController?.navigate(
-                                    R.id.dashboard,
+                                    R.id.dashboardAdmin,
                                     null,
                                     navOptions
                                 )
@@ -1082,7 +1084,7 @@ class MainActivity : AppCompatActivity() {
                     } else {
 //                        Log.e("key", "showDataBB ")
 //                        Log.e("_id", "showDataBB ")
-                        navHostFragment?.navController?.navigate(R.id.dashboard, null, navOptions)
+                        navHostFragment?.navController?.navigate(R.id.dashboardAdmin, null, navOptions)
                     }
                 }
             } else {

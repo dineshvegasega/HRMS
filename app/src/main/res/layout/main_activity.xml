@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@drawable/gradient_background"
         android:fitsSystemWindows="true"
     android:id="@+id/layoutRoot">
 
@@ -19,12 +19,13 @@
         tools:openDrawer="start">
 
 
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/white">
+            android:orientation="vertical" >
 
             <include
                 android:id="@+id/top_layout"
@@ -36,6 +37,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 />
+
+
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/nav_host_fragment"
@@ -122,6 +125,8 @@
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
         <com.google.android.material.navigation.NavigationView

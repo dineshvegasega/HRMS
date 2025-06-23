@@ -70,7 +70,7 @@ class LoginPasswordVM @Inject constructor(private val repository: Repository
                                     showSnackBar("Invalid Login Details")
                                 }
                             } else if (data.role_id == 1){
-                                if (loginType == 1){
+                                if (loginType == 2){
                                     profile(view){
                                         showSnackBar(view.resources.getString(R.string.logged_in_successfully))
                                         MainActivity.mainActivity.get()?.reloadActivity("en", Main)

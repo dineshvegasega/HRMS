@@ -105,6 +105,14 @@
             app:popUpToInclusive="true"
             />
 
+        <action
+            android:id="@+id/action_splash_to_dashboardAdmin"
+            app:destination="@id/dashboardAdmin"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/splash"
+            app:popUpToInclusive="true"
+            />
+
     </fragment>
 
 
@@ -534,6 +542,107 @@
             app:launchSingleTop="true"
             />
     </fragment>
+
+
+    <fragment
+        android:name="com.vegasega.hrms.screens.main.dashboard.DashboardAdmin"
+        android:label="DashboardAdmin"
+        android:id="@+id/dashboardAdmin"
+        tools:layout="@layout/dashboard_admin">
+        <action
+            android:id="@+id/action_dashboard_to_dashboard"
+            app:destination="@id/dashboard"
+            app:launchSingleTop="true"
+            />
+        <action
+            android:id="@+id/action_dashboard_to_profile"
+            app:destination="@id/profiles"
+            app:launchSingleTop="true"
+            />
+        <action
+            android:id="@+id/action_dashboard_to_notifications"
+            app:destination="@id/notifications"
+            app:launchSingleTop="true"
+            />
+        <action
+            android:id="@+id/action_dashboard_to_membershipDetails"
+            app:destination="@id/membershipDetails"
+            app:launchSingleTop="true"
+            />
+
+        <action
+            android:id="@+id/action_dashboard_to_membershipDetailsXX"
+            app:destination="@id/membershipDetailsXX"
+            app:launchSingleTop="true"
+            />
+        <action
+            android:id="@+id/action_dashboard_to_createDistribution"
+            app:destination="@id/nbpa"
+            app:launchSingleTop="true"
+            />
+        <action
+            android:id="@+id/action_dashboard_to_nbpaList"
+            app:destination="@id/nbpaList"
+            app:launchSingleTop="true"
+            />
+        <action
+            android:id="@+id/action_dashboard_to_allSchemes"
+            app:destination="@id/allSchemes"
+            app:launchSingleTop="true"
+            />
+        <action
+            android:id="@+id/action_dashboard_to_liveNotices"
+            app:destination="@id/liveNotices"
+            app:launchSingleTop="true"
+            />
+        <action
+            android:id="@+id/action_dashboard_to_allNotices"
+            app:destination="@id/allNotices"
+            app:launchSingleTop="true"
+            />
+        <action
+            android:id="@+id/action_dashboard_to_liveTraining"
+            app:destination="@id/liveTraining"
+            app:launchSingleTop="true"
+            />
+        <action
+            android:id="@+id/action_dashboard_to_allTraining"
+            app:destination="@id/allTraining"
+            app:launchSingleTop="true"
+            />
+        <action
+            android:id="@+id/action_dashboard_to_history"
+            app:destination="@id/history"
+            app:launchSingleTop="true"
+            />
+        <action
+            android:id="@+id/action_dashboard_to_createNew"
+            app:destination="@id/createNew"
+            app:launchSingleTop="true"
+            />
+        <action
+            android:id="@+id/action_dashboard_to_informationCenter"
+            app:destination="@id/informationCenter"
+            app:launchSingleTop="true"
+            />
+        <action
+            android:id="@+id/action_dashboard_to_subscription"
+            app:destination="@id/subscription"
+            app:launchSingleTop="true"
+            />
+        <action
+            android:id="@+id/action_dashboard_to_settings"
+            app:destination="@id/settings"
+            app:launchSingleTop="true"
+            />
+        <action
+            android:id="@+id/action_dashboard_to_announcementsDetail"
+            app:destination="@id/announcementsDetail"
+            app:launchSingleTop="true"
+            />
+    </fragment>
+
+
 
 
     <fragment

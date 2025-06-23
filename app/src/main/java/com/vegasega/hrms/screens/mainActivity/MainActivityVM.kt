@@ -36,6 +36,7 @@ import com.vegasega.hrms.screens.main.accounts.users.Users
 import com.vegasega.hrms.screens.main.announcements.Announcements
 import com.vegasega.hrms.screens.main.attendances.Attendances
 import com.vegasega.hrms.screens.main.dashboard.Dashboard
+import com.vegasega.hrms.screens.main.dashboard.DashboardAdmin
 import com.vegasega.hrms.screens.main.data.departments.Departments
 import com.vegasega.hrms.screens.main.data.employees.Employees
 import com.vegasega.hrms.screens.main.data.positions.Positions
@@ -151,7 +152,7 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
 
                 val res: Int =
                     root.context.resources.getIdentifier(dataClass.icon, "drawable", root.context.packageName)
-                ivMenu.setImageResource(res);
+                ivMenu.setImageResource(res)
 
                 title.text = dataClass.title
                 if (dataClass.titleChildArray!!.isEmpty()) {
@@ -188,9 +189,9 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
                                 if(data.role_id == 3){
                                     when (position) {
                                         0 -> {
-                                            if (fragmentInFrame !is Dashboard) {
+                                            if (fragmentInFrame !is DashboardAdmin) {
                                                 navHostFragment?.navController?.navigate(
-                                                    R.id.dashboard
+                                                    R.id.dashboardAdmin
                                                 )
                                             }
                                         }
@@ -250,9 +251,9 @@ class MainActivityVM @Inject constructor(private val repository: Repository) : V
                                 if(data.role_id == 1){
                                     when (position) {
                                         0 -> {
-                                            if (fragmentInFrame !is Dashboard) {
+                                            if (fragmentInFrame !is DashboardAdmin) {
                                                 navHostFragment?.navController?.navigate(
-                                                    R.id.dashboard
+                                                    R.id.dashboardAdmin
                                                 )
                                             }
                                         }
